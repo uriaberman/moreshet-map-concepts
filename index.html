@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מפת מורשת · שלושה כיווני עיצוב</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=David+Libre:wght@400;500;700&family=Assistant:wght@300;400;600;700&family=Secular+One&family=IBM+Plex+Sans+Hebrew:wght@300;400;500;700&family=Miriam+Libre:wght@400;700&family=Karantina:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12151c; --paper:#f4f2ec; --line:#e2ded2; --muted:#6b7280;
+  /* קו א · אור זיכרון */
+  --a-bg0:#040810; --a-bg1:#0a1322; --a-bg2:#101d33; --a-amber:#f2b64d; --a-amber2:#ffd98c; --a-ivory:#f3ecdd; --a-mut:#8b97ad;
+  /* קו ב · שכבות האדמה */
+  --b-sand:#e9e1cf; --b-sand2:#f3eee1; --b-charcoal:#20242c; --b-olive:#5c6b4c; --b-signal:#d9700f; --b-mut:#8a8676;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Rubik',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:#f2b64d55}
+
+/* ---------- מבנה כללי ---------- */
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.kicker{font-size:12px;letter-spacing:.22em;font-weight:600;color:var(--muted);text-transform:uppercase}
+h1{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(42px,6vw,76px);line-height:1.05;margin:18px 0 20px}
+h2{font-size:clamp(26px,3vw,40px);font-weight:800;line-height:1.15}
+.lead{font-size:18px;color:#3d4350;max-width:720px}
+
+/* HERO */
+.hero{padding:88px 0 56px;border-bottom:1px solid var(--line);background:
+ radial-gradient(1200px 500px at 85% -10%, #e7dfc9 0%, transparent 60%),
+ radial-gradient(900px 420px at 10% 110%, #ddd6c4 0%, transparent 55%);}
+.hero .tag{display:inline-flex;align-items:center;gap:8px;background:#12151c;color:#f4f2ec;font-size:13px;font-weight:500;padding:7px 16px;border-radius:100px;margin-bottom:26px}
+.hero .tag i{width:7px;height:7px;border-radius:50%;background:var(--a-amber);display:inline-block}
+.brieftxt{margin:34px 0 0;padding:26px 30px;background:#fffdf7;border:1px solid var(--line);border-radius:18px;max-width:860px;position:relative}
+.brieftxt:before{content:"מתוך ההקלטה של שמעון";position:absolute;top:-11px;right:24px;background:#12151c;color:#fff;font-size:11.5px;padding:3px 12px;border-radius:100px;letter-spacing:.05em}
+.brieftxt p{font-family:'Frank Ruhl Libre',serif;font-size:20px;line-height:1.75;color:#2a2f3a}
+.brieftxt p b{color:#000}
+.heromedia{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;font-size:14px}
+.heromedia a,.heromedia span{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border:1px solid #cfcaba;border-radius:100px;color:#40465a;text-decoration:none;background:#fff9ee}
+.heromedia a:hover{border-color:#12151c;color:#000}
+
+/* עוגנים */
+.navjump{position:sticky;top:0;z-index:60;background:#f4f2ecf2;backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.navjump .wrap{display:flex;gap:6px;align-items:center;height:58px;overflow-x:auto}
+.navjump a{white-space:nowrap;font-size:13.5px;font-weight:500;color:#555c6e;text-decoration:none;padding:7px 15px;border-radius:100px}
+.navjump a:hover{background:#e9e4d5;color:#000}
+.navjump .sep{color:#c8c2b0;font-size:12px}
+
+/* מסגרת קונספט */
+.concept{padding:90px 0 40px}
+.concept-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;align-items:start;margin-bottom:64px}
+@media(max-width:960px){.concept-head{grid-template-columns:1fr}}
+.cnum{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.28em;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.cnum:after{content:"";height:1px;flex:1;background:currentColor;opacity:.25}
+.cname{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(36px,4.6vw,58px);line-height:1.08;margin-bottom:6px}
+.csub{font-size:17px;font-weight:500;opacity:.75;margin-bottom:26px}
+.cdesc{font-size:16.5px;max-width:640px}
+.cdesc b{font-weight:700}
+.logicbox{border-radius:20px;padding:28px 30px;font-size:15px}
+.logicbox h4{font-size:12.5px;letter-spacing:.2em;font-weight:700;margin-bottom:14px;opacity:.65}
+.logicbox ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.logicbox li{padding-right:22px;position:relative}
+.logicbox li:before{content:"◆";position:absolute;right:0;top:1px;font-size:9px;opacity:.6}
+.metagrid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
+@media(max-width:600px){.metagrid{grid-template-columns:1fr}}
+.metagrid h5{font-size:12px;letter-spacing:.18em;font-weight:700;opacity:.6;margin-bottom:10px}
+.swatches{display:flex;gap:8px}
+.sw{width:44px;height:44px;border-radius:10px;border:1px solid #00000022;position:relative}
+.sw span{position:absolute;bottom:-20px;right:0;font-family:'IBM Plex Mono',monospace;font-size:9px;opacity:.65;white-space:nowrap}
+.typo{font-size:14px;line-height:1.5}
+.refs{display:flex;flex-wrap:wrap;gap:8px}
+.refs span{font-size:12.5px;padding:5px 12px;border-radius:100px;border:1px solid currentColor;opacity:.75}
+
+/* ---------- טלפונים ---------- */
+.screens{display:flex;gap:34px;overflow-x:auto;padding:10px 4px 34px;scroll-snap-type:x proximity}
+.screens::-webkit-scrollbar{height:10px}
+.screens::-webkit-scrollbar-thumb{background:#c9c3b1;border-radius:10px}
+.shot{flex:0 0 auto;width:308px;scroll-snap-align:center}
+.phone{width:308px;height:648px;border-radius:46px;padding:10px;position:relative;box-shadow:0 30px 60px -18px #00000055, 0 4px 14px #00000030}
+.phone .notch{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:96px;height:26px;border-radius:100px;z-index:40}
+.screen{width:100%;height:100%;border-radius:37px;overflow:hidden;position:relative;direction:rtl}
+.annot{margin-top:22px}
+.annot .sn{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;font-weight:600;opacity:.55}
+.annot h6{font-size:17px;font-weight:700;margin:6px 0 10px}
+.annot ul{list-style:none;font-size:13.5px;color:#4a5060;display:flex;flex-direction:column;gap:7px}
+.annot li{padding-right:16px;position:relative;line-height:1.5}
+.annot li:before{content:"›";position:absolute;right:0;font-weight:700;opacity:.5}
+
+/* ============ ערכת קו א · לילה ============ */
+.thm-a{background:linear-gradient(180deg,#0b0f19 0%, #0d1220 100%);color:var(--a-ivory)}
+.thm-a .kicker{color:#93a0b8}
+.thm-a .lead{color:#b8c2d4}
+.thm-a .logicbox{background:#ffffff0a;border:1px solid #ffffff1c}
+.thm-a .annot h6{color:#f3ecdd}
+.thm-a .annot ul{color:#9daabf}
+.thm-a .phone{background:linear-gradient(160deg,#2a2f3c,#0c0f16);}
+.thm-a .phone .notch{background:#05070c}
+.thm-a .cnum{color:var(--a-amber)}
+.thm-a .csub{color:#c7b995}
+
+/* מסך א: מפת לילה */
+.a-map{background:
+ radial-gradient(220px 150px at 70% 26%, #16263f 0%, transparent 70%),
+ radial-gradient(300px 220px at 20% 60%, #12203a 0%, transparent 70%),
+ radial-gradient(260px 200px at 85% 80%, #0e1a30 0%, transparent 70%),
+ linear-gradient(165deg,#081020 0%, #050a14 55%, #04070f 100%)}
+.a-map svg.roads{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+.dotlight{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--a-amber2);box-shadow:0 0 14px 4px #f2b64d99, 0 0 40px 14px #f2b64d33;animation:breath 3.2s ease-in-out infinite}
+.dotlight.sm{width:6px;height:6px;box-shadow:0 0 10px 3px #f2b64d80}
+.dotlight.d2{animation-delay:1.1s}.dotlight.d3{animation-delay:2s}
+@keyframes breath{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.25);opacity:1}}
+.a-top{position:absolute;top:56px;right:16px;left:16px;display:flex;gap:10px;z-index:20}
+.a-search{flex:1;height:42px;border-radius:100px;background:#0d1626d9;border:1px solid #ffffff24;backdrop-filter:blur(6px);display:flex;align-items:center;gap:10px;padding:0 16px;color:#93a0b8;font-size:12.5px}
+.a-avatar{width:42px;height:42px;border-radius:50%;background:#0d1626d9;border:1px solid #ffffff24;display:flex;align-items:center;justify-content:center;font-size:15px}
+.a-chips{position:absolute;top:108px;right:16px;display:flex;gap:7px;z-index:20}
+.a-chip{font-size:11px;font-weight:500;padding:6px 13px;border-radius:100px;background:#0d1626cc;border:1px solid #ffffff22;color:#aeb9cc}
+.a-chip.on{background:var(--a-amber);color:#1c1607;border-color:var(--a-amber);font-weight:700;box-shadow:0 0 18px #f2b64d55}
+.a-sheet{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,#0c1424f5,#080e1bfa);border-top:1px solid #ffffff26;border-radius:26px 26px 0 0;padding:14px 20px 22px;z-index:30;backdrop-filter:blur(8px)}
+.a-sheet .grab{width:40px;height:4px;background:#ffffff30;border-radius:10px;margin:0 auto 14px}
+.a-q{font-family:'David Libre',serif;font-size:21px;font-weight:700;color:var(--a-ivory);display:flex;align-items:center;gap:10px}
+.a-q .flame{font-size:18px}
+.a-loc{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#7f8ca3;margin-top:5px}
+.a-statrow{display:flex;gap:8px;margin-top:14px}
+.a-stat{flex:1;background:#ffffff0d;border:1px solid #ffffff1a;border-radius:12px;padding:9px 6px;text-align:center}
+.a-stat b{font-size:17px;color:var(--a-amber2);font-weight:700;display:block;font-family:'David Libre',serif}
+.a-stat span{font-size:9.5px;color:#8b97ad}
+
+/* מסך א2: כרטיס קרב */
+.a-battle{background:linear-gradient(180deg,#0a1120 0%,#070d18 100%)}
+.a-bmap{height:190px;background:
+ radial-gradient(160px 90px at 60% 60%, #1b2c4a 0%, transparent 75%),
+ linear-gradient(160deg,#0d1730,#081020);position:relative}
+.a-bmap .dotlight{top:52%;right:44%}
+.a-bcard{position:absolute;top:168px;bottom:0;left:0;right:0;background:linear-gradient(180deg,#0e1626,#090f1c);border-radius:28px 28px 0 0;border-top:1px solid #ffffff22;padding:22px 22px 18px}
+.a-btag{display:inline-flex;font-size:10.5px;font-weight:600;letter-spacing:.06em;color:#1c1607;background:var(--a-amber);padding:4px 12px;border-radius:100px;margin-bottom:12px}
+.a-btitle{font-family:'David Libre',serif;font-size:26px;font-weight:900;line-height:1.15;color:#f6f0e2}
+.a-bmeta{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#7f8ca3;margin:8px 0 16px;line-height:1.8}
+.a-tl{border-right:2px solid #f2b64d44;margin-right:6px;padding-right:16px;display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.a-tl div{position:relative;font-size:12px;color:#c5cede}
+.a-tl div b{color:var(--a-amber2);font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:11px;margin-left:6px}
+.a-tl div:before{content:"";position:absolute;right:-21.5px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--a-amber);box-shadow:0 0 10px #f2b64d88}
+.a-faces{display:flex;align-items:center;margin-bottom:18px}
+.a-face{width:38px;height:38px;border-radius:50%;background:linear-gradient(150deg,#25334e,#141f35);border:2px solid #0a1120;display:flex;align-items:center;justify-content:center;font-family:'David Libre',serif;font-size:14px;color:var(--a-amber2);margin-left:-9px}
+.a-face.more{font-size:10px;font-family:'Rubik';color:#9aa7bd}
+.a-cta{display:flex;align-items:center;justify-content:center;gap:10px;height:52px;border-radius:15px;background:linear-gradient(120deg,#f2b64d,#e39b25);color:#201804;font-weight:700;font-size:15px;box-shadow:0 8px 26px -6px #f2b64d66}
+.a-cta2{text-align:center;font-size:12px;color:#8b97ad;margin-top:12px}
+
+/* מסך א3: מסע */
+.a-journey{background:linear-gradient(180deg,#050a14 0%,#0a1424 60%,#050a14 100%)}
+.a-prog{position:absolute;top:58px;right:20px;left:20px;display:flex;gap:5px;z-index:20}
+.a-prog i{flex:1;height:3px;border-radius:3px;background:#ffffff22}
+.a-prog i.done{background:var(--a-amber)}
+.a-prog i.now{background:linear-gradient(90deg,var(--a-amber) 60%,#ffffff22 60%)}
+.a-ch{position:absolute;top:86px;right:20px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8b97ad;letter-spacing:.14em}
+.a-jbody{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 26px;z-index:10}
+.a-time{font-family:'IBM Plex Mono',monospace;color:var(--a-amber);font-size:13px;letter-spacing:.2em;margin-bottom:14px}
+.a-jtxt{font-family:'David Libre',serif;font-size:24px;line-height:1.5;font-weight:500;color:#f0e9da}
+.a-jtxt em{color:var(--a-amber2);font-style:normal}
+.a-jsrc{margin-top:16px;font-size:11px;color:#7f8ca3}
+.a-jmapghost{position:absolute;inset:0;background:radial-gradient(300px 260px at 50% 45%, #14243f66 0%, transparent 70%);filter:blur(2px)}
+.a-scrollhint{position:absolute;bottom:26px;left:0;right:0;text-align:center;font-size:11px;color:#68758d;animation:hint 2.4s ease-in-out infinite}
+@keyframes hint{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(6px);opacity:1}}
+
+/* מסך א4: דף נופל */
+.a-fallen{background:linear-gradient(180deg,#070d18 0%,#0b1322 100%)}
+.a-halo{position:absolute;top:64px;left:50%;transform:translateX(-50%);width:118px;height:118px;border-radius:50%;background:linear-gradient(160deg,#2b3a58,#16233c);display:flex;align-items:center;justify-content:center;font-family:'David Libre',serif;font-size:44px;color:var(--a-amber2);box-shadow:0 0 0 6px #f2b64d22, 0 0 46px #f2b64d33}
+.a-fname{position:absolute;top:196px;left:0;right:0;text-align:center}
+.a-fname h3{font-family:'David Libre',serif;font-size:24px;font-weight:900;color:#f6f0e2}
+.a-fname p{font-size:11.5px;color:#8b97ad;margin-top:4px;font-family:'IBM Plex Mono',monospace}
+.a-bio{position:absolute;top:262px;right:24px;left:24px;font-family:'David Libre',serif;font-size:14.5px;line-height:1.85;color:#cbd3e2;text-align:center}
+.a-candlerow{position:absolute;bottom:96px;right:22px;left:22px;display:flex;gap:10px}
+.a-candle{flex:1.6;display:flex;align-items:center;justify-content:center;gap:9px;height:50px;border-radius:14px;background:linear-gradient(120deg,#f2b64d,#e39b25);color:#201804;font-weight:700;font-size:13.5px;box-shadow:0 8px 26px -6px #f2b64d55}
+.a-voice{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;height:50px;border-radius:14px;background:#ffffff10;border:1px solid #ffffff26;color:#d5dcea;font-size:12px}
+.a-count{position:absolute;bottom:44px;left:0;right:0;text-align:center;font-size:11.5px;color:#9aa7bd}
+.a-count b{color:var(--a-amber2)}
+.flameanim{display:inline-block;animation:flick 1.6s ease-in-out infinite;transform-origin:bottom}
+@keyframes flick{0%,100%{transform:rotate(-3deg) scale(1)}30%{transform:rotate(3deg) scale(1.08)}60%{transform:rotate(-2deg) scale(.96)}}
+
+/* מסך א5: קיר האור */
+.a-wall{background:linear-gradient(180deg,#050a14,#0a1120)}
+.a-wallhead{position:absolute;top:58px;right:20px;left:20px;z-index:10}
+.a-wallhead h3{font-family:'David Libre',serif;font-size:26px;font-weight:900;color:#f3ecdd}
+.a-wallhead p{font-size:11.5px;color:#8b97ad;margin-top:4px}
+.a-wgrid{position:absolute;top:150px;bottom:120px;right:22px;left:22px;display:grid;grid-template-columns:repeat(6,1fr);gap:12px;align-content:start}
+.a-w{aspect-ratio:1;border-radius:50%;background:#f2b64d;opacity:.85;box-shadow:0 0 12px 2px #f2b64d66;animation:breath 4s ease-in-out infinite}
+.a-w:nth-child(3n){animation-delay:1.2s;opacity:.6}
+.a-w:nth-child(4n){animation-delay:2.1s;opacity:.95}
+.a-w:nth-child(5n){opacity:.45;box-shadow:0 0 8px 1px #f2b64d44}
+.a-wallfoot{position:absolute;bottom:40px;right:22px;left:22px;background:#ffffff0d;border:1px solid #ffffff1f;border-radius:14px;padding:12px 16px;font-size:11.5px;color:#aeb9cc;text-align:center}
+.a-wallfoot b{color:var(--a-amber2)}
+
+/* ============ ערכת קו ב · יום ============ */
+.thm-b{background:linear-gradient(180deg,#efe9da 0%, #f5f1e6 100%);color:var(--b-charcoal)}
+.thm-b .kicker{color:#8b8570}
+.thm-b .lead{color:#4c5040}
+.thm-b .logicbox{background:#ffffffb8;border:1px solid #d8d1bd}
+.thm-b .annot ul{color:#5a5f52}
+.thm-b .phone{background:linear-gradient(160deg,#3a3f34,#181b14)}
+.thm-b .phone .notch{background:#10120d}
+.thm-b .cnum{color:var(--b-signal)}
+.thm-b .csub{color:#77714f}
+
+/* מסך ב1: שטח */
+.b-field{background:
+ radial-gradient(240px 170px at 30% 30%, #ded3b8 0%, transparent 70%),
+ radial-gradient(280px 200px at 75% 70%, #d8cdb0 0%, transparent 70%),
+ linear-gradient(160deg,#e7dfc9,#ded4b8)}
+.b-field svg.contours{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.b-hud{position:absolute;top:54px;right:14px;left:14px;background:#20242cf0;border-radius:12px;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;z-index:30}
+.b-hud .c{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#cdd3c2;letter-spacing:.04em;line-height:1.5}
+.b-hud .c b{color:#fff;font-weight:600}
+.b-hud .lay{font-family:'IBM Plex Mono',monospace;font-size:9px;background:var(--b-signal);color:#fff;padding:3px 9px;border-radius:6px;font-weight:600}
+.b-me{position:absolute;top:47%;right:46%;width:16px;height:16px;border-radius:50%;background:#2563eb;border:3px solid #fff;box-shadow:0 2px 8px #0006;z-index:20}
+.b-mering{position:absolute;top:calc(47% - 26px);right:calc(46% - 26px);width:68px;height:68px;border-radius:50%;border:2px solid #2563eb55;animation:ring 2.6s ease-out infinite}
+@keyframes ring{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.5);opacity:0}}
+.b-ev{position:absolute;z-index:15;display:flex;flex-direction:column;align-items:center;gap:3px}
+.b-ev .pin{width:26px;height:26px;border-radius:8px;background:#20242c;color:#f2c266;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 3px 8px #0005;border:1.5px solid #f2c26644}
+.b-ev .lbl{font-family:'IBM Plex Mono',monospace;font-size:8px;background:#fffef8e8;border:1px solid #c9c2a8;padding:2px 6px;border-radius:5px;color:#3c4032;font-weight:600}
+.b-scan{position:absolute;bottom:98px;left:50%;transform:translateX(-50%);z-index:30;width:170px;height:54px;border-radius:100px;background:#20242c;color:#f5f1e6;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:14.5px;box-shadow:0 12px 30px -8px #0009}
+.b-scan i{width:9px;height:9px;border-radius:50%;background:var(--b-signal);animation:breath 1.8s infinite}
+.b-tabbar{position:absolute;bottom:0;left:0;right:0;height:66px;background:#fffef8f5;border-top:1px solid #d8d1bd;display:flex;z-index:30}
+.b-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9.5px;color:#8a8676}
+.b-tab.on{color:var(--b-charcoal);font-weight:600}
+.b-tab .ic{font-size:16px}
+.b-layers{position:absolute;top:118px;left:14px;display:flex;flex-direction:column;gap:6px;z-index:25}
+.b-layerbtn{width:38px;height:38px;border-radius:10px;background:#fffef8e8;border:1px solid #c9c2a8;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 6px #0002}
+
+/* מסך ב2: תוצאות סריקה */
+.b-scanres{background:linear-gradient(180deg,#f3eee1,#ece5d2)}
+.b-srhead{position:absolute;top:54px;right:18px;left:18px;z-index:10}
+.b-srhead .bk{font-size:11px;color:#8a8676;margin-bottom:8px}
+.b-srhead h3{font-size:21px;font-weight:800;color:#20242c;line-height:1.2}
+.b-srhead .mono{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8a8676;margin-top:6px}
+.b-cards{position:absolute;top:150px;bottom:20px;right:16px;left:16px;display:flex;flex-direction:column;gap:11px;overflow:hidden}
+.b-card{background:#fffef8;border:1px solid #ddd6c0;border-radius:16px;padding:14px 16px;display:flex;gap:13px;align-items:flex-start;box-shadow:0 2px 10px #00000008}
+.b-dist{min-width:56px;text-align:center;border-left:1px solid #e5decb;padding-left:12px}
+.b-dist b{font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--b-signal);display:block;font-weight:600}
+.b-dist span{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#8a8676}
+.b-dist .arr{display:inline-block;font-size:13px;color:#20242c;margin-top:2px}
+.b-cbody h4{font-size:13.5px;font-weight:700;color:#20242c;line-height:1.3}
+.b-cbody p{font-size:10.5px;color:#77725f;margin-top:3px;line-height:1.5}
+.b-ctags{display:flex;gap:6px;margin-top:8px}
+.b-ctag{font-size:9px;font-weight:600;padding:3px 9px;border-radius:100px;background:#eee7d4;color:#5c5943}
+.b-ctag.olive{background:#5c6b4c;color:#fff}
+.b-ctag.sig{background:#f8e8d5;color:#a4560b}
+
+/* מסך ב3: חוגת זמן */
+.b-time{background:
+ radial-gradient(240px 170px at 40% 32%, #ded3b8 0%, transparent 70%),
+ linear-gradient(160deg,#e4dcc4,#d9cfb2)}
+.b-ghost{position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(45deg,#8d846b0a 0 8px,transparent 8px 16px)}
+.b-nowlabel{position:absolute;top:110px;left:50%;transform:translateX(-50%);background:#20242c;color:#f2c266;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:7px 16px;border-radius:100px;z-index:20;letter-spacing:.08em;box-shadow:0 6px 18px -4px #0007}
+.b-diff{position:absolute;top:152px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:20}
+.b-diffchip{font-size:9.5px;background:#fffef8e0;border:1px solid #c9c2a8;border-radius:100px;padding:4px 11px;color:#5c5943;font-weight:500;white-space:nowrap}
+.b-dial{position:absolute;bottom:0;left:0;right:0;height:190px;background:linear-gradient(180deg,#20242cfa,#181b22);border-radius:28px 28px 0 0;z-index:30;padding:20px 22px}
+.b-dial .grab{width:40px;height:4px;background:#ffffff2e;border-radius:10px;margin:0 auto 16px}
+.b-dial h4{font-size:12px;color:#b9bfae;letter-spacing:.14em;font-weight:600;text-align:center;margin-bottom:16px}
+.b-track{position:relative;height:56px}
+.b-track .line{position:absolute;top:26px;right:0;left:0;height:2px;background:#ffffff26}
+.b-stop{position:absolute;top:0;width:64px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#8b8f80;transform:translateX(50%)}
+.b-stop i{display:block;width:10px;height:10px;border-radius:50%;background:#5a5f52;margin:20px auto 6px;border:2px solid #20242c}
+.b-stop.on{color:#f2c266}
+.b-stop.on i{background:var(--b-signal);width:16px;height:16px;margin-top:17px;box-shadow:0 0 0 5px #d9700f33}
+.b-dialfoot{text-align:center;font-size:10px;color:#8b8f80;margin-top:10px}
+
+/* מסך ב4: תדריך */
+.b-brief{background:linear-gradient(180deg,#f3eee1,#ece5d2)}
+.b-doc{position:absolute;top:96px;right:16px;left:16px;bottom:88px;background:#fffef8;border:1px solid #ddd6c0;border-radius:18px;padding:20px;overflow:hidden;box-shadow:0 6px 22px #00000010}
+.b-doc .stamp{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#a49e87;letter-spacing:.1em;display:flex;justify-content:space-between;margin-bottom:12px}
+.b-doc h3{font-size:19px;font-weight:800;color:#20242c;line-height:1.25;margin-bottom:4px}
+.b-doc .sub{font-size:10.5px;color:#8a8676;margin-bottom:16px}
+.b-sec{display:flex;gap:12px;padding:11px 0;border-top:1px dashed #e0d9c4}
+.b-sec .n{font-family:'IBM Plex Mono',monospace;min-width:26px;height:26px;border-radius:8px;background:#20242c;color:#f2c266;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:600}
+.b-sec h5{font-size:12.5px;font-weight:700;color:#2c3028}
+.b-sec p{font-size:10px;color:#77725f;line-height:1.55;margin-top:2px}
+.b-sec .t{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#a4560b;margin-right:auto;white-space:nowrap}
+.b-briefbar{position:absolute;bottom:16px;right:16px;left:16px;display:flex;gap:9px}
+.b-bb1{flex:1.5;height:48px;border-radius:13px;background:#20242c;color:#f5f1e6;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;font-weight:600}
+.b-bb2{flex:1;height:48px;border-radius:13px;background:#fffef8;border:1px solid #c9c2a8;color:#3c4032;display:flex;align-items:center;justify-content:center;gap:7px;font-size:11.5px}
+.b-bhead{position:absolute;top:54px;right:18px;left:18px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.b-bhead .bk{font-size:11px;color:#8a8676}
+.b-bhead .tag{font-family:'IBM Plex Mono',monospace;font-size:8.5px;background:#5c6b4c;color:#fff;padding:4px 10px;border-radius:6px;font-weight:600}
+
+/* מסך ב5: יחידה */
+.b-unit{background:linear-gradient(180deg,#f3eee1,#ece5d2)}
+.b-uhead{position:absolute;top:0;left:0;right:0;height:172px;background:linear-gradient(160deg,#2a3025,#1c211a);padding:60px 20px 0;z-index:5}
+.b-uhead .em{width:44px;height:44px;border-radius:12px;background:#5c6b4c;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:10px}
+.b-uhead h3{font-size:20px;font-weight:800;color:#f5f1e6}
+.b-uhead p{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:#a8b096;margin-top:3px}
+.b-utl{position:absolute;top:192px;bottom:86px;right:20px;left:20px;overflow:hidden}
+.b-utl .row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #e0d9c4}
+.b-utl .d{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#a4560b;min-width:58px;font-weight:600;padding-top:2px}
+.b-utl h5{font-size:12.5px;font-weight:700;color:#23271f}
+.b-utl p{font-size:10px;color:#77725f;margin-top:2px}
+.b-utl .vtag{font-size:8.5px;background:#e4ecd9;color:#42502f;border-radius:100px;padding:2px 8px;font-weight:600;margin-right:6px}
+.b-fab{position:absolute;bottom:100px;left:18px;width:130px;height:46px;border-radius:100px;background:var(--b-signal);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;font-weight:700;box-shadow:0 10px 24px -6px #d9700f88;z-index:20}
+
+/* ---------- פונטים פר קו ---------- */
+.thm-a .screen{font-family:'Assistant',sans-serif}
+.thm-b .screen{font-family:'IBM Plex Sans Hebrew',sans-serif}
+.thm-b .screen h3,.thm-b .screen h4,.thm-b .screen h5,.b-scan,.b-uhead h3,.b-srhead h3{font-family:'Secular One',sans-serif;font-weight:400;letter-spacing:.01em}
+
+/* ---------- רצועת היגיון פנימי ---------- */
+.flow{margin-top:26px;padding:16px 20px;border-radius:14px;border:1px dashed currentColor;opacity:.92}
+.flow h5{font-size:11.5px;letter-spacing:.2em;font-weight:700;opacity:.6;margin-bottom:10px}
+.flow .steps{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;font-weight:500}
+.flow .steps b{padding:5px 12px;border-radius:100px;background:currentColor;position:relative}
+.flow .steps b i{font-style:normal;mix-blend-mode:difference;color:#fff}
+.flow .steps span{opacity:.5;font-size:11px}
+.flow p{font-size:12.5px;margin-top:10px;opacity:.75;line-height:1.6}
+
+/* ============ ערכת קו ג · תצ"א אמיתית ============ */
+.thm-c{background:linear-gradient(180deg,#15181a 0%,#1a1e1f 100%);color:#e8e4d8}
+.thm-c .kicker{color:#9aa389}
+.thm-c .lead{color:#b3baa5}
+.thm-c .logicbox{background:#ffffff08;border:1px solid #ffffff1a}
+.thm-c .annot h6{color:#e3e6d4;font-family:'Miriam Libre',sans-serif}
+.thm-c .annot ul{color:#9aa090}
+.thm-c .phone{background:linear-gradient(160deg,#3a3e38,#131511)}
+.thm-c .phone .notch{background:#0b0d0a}
+.thm-c .cnum{color:#ffd66b}
+.thm-c .csub{color:#c9bd8a}
+.thm-c .cname{font-family:'Miriam Libre',sans-serif;font-weight:700}
+.thm-c .screen{font-family:'Miriam Libre',sans-serif;background:#14171a}
+.c-mono{font-family:'IBM Plex Mono',monospace}
+.c-air{position:absolute;inset:0;background-size:cover;background-position:center}
+.c-air.n{background-image:url('assets/aerial-north-tall.jpg')}
+.c-air.close{background-image:url('assets/aerial-close-tall.jpg')}
+.c-air.w{background-image:url('assets/aerial-wide.jpg')}
+.c-dim{position:absolute;inset:0;background:linear-gradient(180deg,#10131688 0%,transparent 30%,transparent 55%,#101316e6 100%)}
+.c-top{position:absolute;top:46px;right:14px;left:14px;background:#1c2126ee;border-radius:12px;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;z-index:30;border:1px solid #ffffff14}
+.c-top .c{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#cfd5c7;line-height:1.6}
+.c-top .c b{color:#fff;font-weight:600}
+.c-top .d{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#ffd66b}
+.c-north{position:absolute;top:120px;left:20px;z-index:25;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#fff;text-shadow:0 1px 4px #000;text-align:center;line-height:1.2}
+.c-north b{font-size:15px;display:block}
+.c-scale{position:absolute;bottom:118px;left:20px;z-index:25;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#fff;text-shadow:0 1px 3px #000}
+.c-scale .bar{width:80px;height:4px;border:1px solid #fff;border-top:none;display:flex;margin-bottom:3px}
+.c-scale .bar i{flex:1;background:#ffffffcc}
+.c-scale .bar i:nth-child(2n){background:transparent}
+.c-pin{position:absolute;z-index:22;display:flex;flex-direction:column;align-items:center;gap:4px}
+.c-pin .p{width:30px;height:30px;border-radius:50%;background:#1c2126f0;border:2px solid #ffd66b;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 3px 12px #000a}
+.c-pin .p.f{border-color:#ff9d5c}
+.c-pin .lb{font-family:'IBM Plex Mono',monospace;font-size:8px;background:#101316d9;padding:3px 8px;border-radius:6px;color:#f0ede2;letter-spacing:.05em;white-space:nowrap;border:1px solid #ffffff1c}
+.c-fallpt{position:absolute;z-index:20;width:14px;height:14px;border-radius:50%;background:#ffd66b;box-shadow:0 0 0 5px #ffd66b33, 0 0 22px 6px #ffd66b55;animation:breath 3.2s infinite}
+.c-fallring{position:absolute;z-index:19;width:64px;height:64px;border-radius:50%;border:1.5px solid #ffd66b66;animation:ring 2.8s ease-out infinite}
+.c-sheet2{position:absolute;bottom:0;left:0;right:0;background:#f4f1e8;border-radius:24px 24px 0 0;padding:16px 20px 18px;z-index:40;color:#23261f;box-shadow:0 -14px 40px #0007}
+.c-sheet2 .grab{width:40px;height:4px;background:#00000022;border-radius:10px;margin:0 auto 12px}
+.c-sheet2 h3{font-size:20px;font-weight:700;color:#20241f;line-height:1.25}
+.c-sheet2 .m{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#8a8674;margin-top:4px}
+.c-legend2{display:flex;gap:14px;margin-top:12px;font-size:10.5px;color:#5c5943}
+.c-legend2 b{width:12px;height:12px;border-radius:50%;border:2px solid #d9a53f;display:inline-block;vertical-align:-2px;margin-left:5px}
+.c-legend2 b.f{border-color:#c96f31}
+.c-btn2{margin-top:14px;height:48px;border-radius:13px;background:#23261f;color:#f4f1e8;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:13.5px}
+.c-btn2.ghost{background:transparent;border:1.5px solid #23261f33;color:#3c4034;font-weight:500;margin-top:8px;height:42px;font-size:12px}
+.c-photo2{position:relative;border:3px solid #fff;box-shadow:0 6px 22px #0006}
+.c-photo2 .cap{position:absolute;bottom:0;right:0;left:0;background:#101316cc;color:#e8e4d8;font-family:'IBM Plex Mono',monospace;font-size:7.5px;padding:4px 8px;letter-spacing:.06em}
+.c-mark{position:absolute;border:1.6px solid #ffd66b;box-shadow:0 0 0 1px #00000055;z-index:10}
+.c-mark .t{position:absolute;top:-20px;right:-1px;font-family:'IBM Plex Mono',monospace;font-size:8px;background:#101316d9;color:#ffd66b;padding:2px 7px;white-space:nowrap}
+.c-frow2{display:flex;justify-content:space-between;gap:10px;padding:8px 2px;border-bottom:1px dashed #00000018;font-size:12px}
+.c-frow2 .k{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#8a8674;padding-top:2px;letter-spacing:.06em}
+.c-frow2 .v{color:#23261f;text-align:left;line-height:1.45}
+.c-before2{position:absolute;inset:0;background-image:url('assets/aerial-wide.jpg');background-size:cover;background-position:center;filter:sepia(.45) brightness(1.14) saturate(1.15)}
+.c-after2{position:absolute;top:0;bottom:0;left:0;width:52%;background-image:url('assets/aerial-wide.jpg');background-size:cover;background-position:center;border-right:2.5px solid #f4f1e8;z-index:10}
+.c-handle2{position:absolute;top:44%;left:52%;transform:translate(50%,-50%);width:36px;height:36px;border-radius:50%;background:#f4f1e8;color:#23261f;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;z-index:20;box-shadow:0 4px 16px #000b}
+.c-balbl2{position:absolute;font-family:'IBM Plex Mono',monospace;font-size:8.5px;padding:5px 11px;background:#101316d9;border:1px solid #ffffff22;color:#f0ede2;z-index:15;letter-spacing:.1em;border-radius:7px}
+.c-logrow{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #00000012;font-size:11.5px;line-height:1.55}
+.c-logrow .t{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#a4560b;min-width:64px;font-weight:600;padding-top:2px}
+.c-logrow .x{color:#3c4034}
+.c-logrow .x b{color:#20241f;font-weight:700}
+.c-sheet3{position:absolute;top:120px;right:20px;left:20px;bottom:120px;background:#f9f7ef;border:1px solid #00000022;padding:16px;color:#20241f;box-shadow:0 10px 34px #0008}
+.c-sheet3 .shead{font-family:'IBM Plex Mono',monospace;font-size:7.5px;display:flex;justify-content:space-between;color:#8a8674;border-bottom:1px solid #00000015;padding-bottom:6px;margin-bottom:9px;letter-spacing:.1em}
+.c-sheet3 h4{font-size:16px;font-weight:700}
+.c-sheet3 .thumb{height:96px;margin:9px 0;background-image:url('assets/aerial-wide.jpg');background-size:cover;background-position:60% 40%;position:relative;border:1px solid #00000022}
+.c-sheet3 .thumb i{position:absolute;top:38%;right:44%;width:10px;height:10px;border-radius:50%;background:#ffd66b;box-shadow:0 0 0 4px #ffd66b44}
+.c-sheet3 p{font-size:9.5px;line-height:1.65;color:#3c4034}
+.c-sheet3 .foot{position:absolute;bottom:8px;right:14px;left:14px;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:7px;color:#8a8674;border-top:1px solid #00000015;padding-top:5px}
+.c-actionbar2{position:absolute;bottom:0;left:0;right:0;background:#f4f1e8;padding:12px 18px 18px;z-index:40;box-shadow:0 -10px 30px #0006}
+
+/* ---------- השוואה ---------- */
+.compare{padding:90px 0}
+.comp-table{width:100%;border-collapse:collapse;margin-top:40px;background:#fffdf7;border-radius:18px;overflow:hidden;box-shadow:0 4px 24px #00000010}
+.comp-table th,.comp-table td{padding:16px 20px;text-align:right;border-bottom:1px solid #ece7d8;font-size:14.5px;vertical-align:top}
+.comp-table th{background:#12151c;color:#f4f2ec;font-weight:600;font-size:14px}
+.comp-table th:first-child{width:170px}
+.comp-table td:first-child{font-weight:700;color:#42465a;font-size:13px}
+.comp-table tr:last-child td{border-bottom:none}
+.col-a{color:#8a6414}
+.col-b{color:#5c6b4c}
+.finalnote{margin-top:44px;padding:30px 34px;border-radius:20px;background:#12151c;color:#e8e4d8;font-size:15.5px;line-height:1.8}
+.finalnote b{color:#f2b64d}
+/* ---------- הדמיית האתר המזמין ---------- */
+.sitedemo{padding:90px 0;background:linear-gradient(180deg,#0b0f19,#0d1220);color:#f3ecdd}
+.sitedemo .kicker{color:#93a0b8}
+.sitedemo .lead{color:#b8c2d4}
+.browser{margin:44px auto 0;max-width:1080px;border-radius:16px;overflow:hidden;box-shadow:0 40px 90px -20px #000c;border:1px solid #ffffff1c;background:#05080f}
+.browser .bar{height:40px;background:#10141d;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid #ffffff14}
+.browser .bar i{width:11px;height:11px;border-radius:50%;background:#2c3342}
+.browser .bar i:nth-child(1){background:#e0525288}.browser .bar i:nth-child(2){background:#e8c54788}.browser .bar i:nth-child(3){background:#8fa05a88}
+.browser .bar .url{margin:0 auto;background:#05080f;border:1px solid #ffffff14;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#7f8ca3;padding:5px 22px;direction:ltr}
+.bstage{position:relative;aspect-ratio:16/9.2;overflow:hidden;background:
+ radial-gradient(700px 320px at 50% 78%, #14243f 0%, transparent 65%),
+ radial-gradient(420px 300px at 82% 18%, #101d33 0%, transparent 70%),
+ linear-gradient(170deg,#070c16 0%, #04070f 100%)}
+.bnav{position:absolute;top:0;right:0;left:0;display:flex;align-items:center;justify-content:space-between;padding:22px 38px;z-index:40}
+.bnav .lg{font-family:'David Libre',serif;font-weight:700;font-size:19px;color:#f6f0e2;display:flex;align-items:center;gap:9px}
+.bnav .lg i{width:8px;height:8px;border-radius:50%;background:var(--a-amber);box-shadow:0 0 12px #f2b64d;display:inline-block}
+.bnav .lnk{display:flex;gap:26px;font-size:12.5px;color:#9daabf;font-family:'Assistant',sans-serif}
+.bnav .cta{font-size:12px;font-weight:700;color:#201804;background:linear-gradient(120deg,#f2b64d,#e39b25);border-radius:100px;padding:9px 20px;box-shadow:0 6px 22px -4px #f2b64d55}
+.borb{position:absolute;top:52%;left:50%;transform:translate(-50%,-50%);width:340px;height:340px;border-radius:50%;background:
+ radial-gradient(circle at 38% 32%, #22375c 0%, #101d33 45%, #070d18 78%);
+ box-shadow:0 0 120px 10px #f2b64d14, inset 0 0 60px #00000088;z-index:10}
+.borb:after{content:"";position:absolute;inset:-24px;border-radius:50%;border:1px solid #f2b64d22}
+.borb .dl{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--a-amber2);box-shadow:0 0 12px 3px #f2b64d88;animation:breath 3.4s ease-in-out infinite}
+.bhead{position:absolute;top:47%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:20;width:100%}
+.bhead h3{font-family:'David Libre',serif;font-weight:900;font-size:76px;line-height:1.04;color:#f6f0e2;text-shadow:0 4px 40px #000a}
+.bhead h3 em{font-style:normal;color:var(--a-amber2)}
+.bhead p{font-family:'Assistant',sans-serif;font-size:14.5px;color:#9daabf;margin-top:16px}
+.bmeta{position:absolute;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;color:#5d6a82;z-index:30}
+.bscroll{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:10px;color:#68758d;z-index:30;text-align:center;animation:hint 2.4s infinite}
+.bmarquee{position:absolute;bottom:0;right:0;left:0;border-top:1px solid #ffffff12;background:#05080fd9;padding:10px 0;white-space:nowrap;overflow:hidden;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;color:#7f8ca3;z-index:35}
+.callout{position:absolute;z-index:50;max-width:250px;background:#f2b64d;color:#201804;font-size:11.5px;font-weight:600;line-height:1.5;padding:12px 16px;border-radius:12px;box-shadow:0 12px 30px -8px #000a}
+.callout:before{content:"";position:absolute;top:-7px;right:26px;border:7px solid transparent;border-bottom-color:#f2b64d;border-top:none}
+.callout.up:before{top:auto;bottom:-7px;transform:rotate(180deg)}
+.sd-annot{max-width:1080px;margin:20px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:900px){.sd-annot{grid-template-columns:1fr}}
+.sd-annot .cell h6{font-size:15px;font-weight:700;color:#f3ecdd;margin-bottom:7px}
+.sd-annot .cell p{font-size:13px;color:#9daabf;line-height:1.65}
+.bstage2{position:relative;aspect-ratio:16/8;overflow:hidden;background:linear-gradient(170deg,#060b15,#04070f)}
+.bs2num{position:absolute;top:50%;right:9%;transform:translateY(-50%);font-family:'David Libre',serif;font-weight:900;font-size:170px;color:#f2b64d;line-height:1;z-index:10;text-shadow:0 0 80px #f2b64d33}
+.bs2txt{position:absolute;top:50%;right:31%;transform:translateY(-50%);z-index:10;max-width:270px}
+.bs2txt h4{font-family:'David Libre',serif;font-size:30px;font-weight:700;color:#f6f0e2;line-height:1.3}
+.bs2txt p{font-family:'Assistant',sans-serif;font-size:13px;color:#9daabf;margin-top:10px;line-height:1.7}
+.bs2cards{position:absolute;left:-70px;top:50%;transform:translateY(-50%);display:flex;gap:12px;z-index:10}
+.bs2card{width:150px;height:212px;border-radius:16px;background:linear-gradient(170deg,#0e1626,#090f1c);border:1px solid #ffffff1a;padding:16px;position:relative;overflow:hidden}
+.bs2card .glow{position:absolute;top:26px;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--a-amber2);box-shadow:0 0 14px 4px #f2b64d77}
+.bs2card h5{font-family:'David Libre',serif;font-size:15px;color:#f6f0e2;margin-top:56px;line-height:1.35}
+.bs2card p{font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#7f8ca3;margin-top:8px;line-height:1.8}
+.bs2card:nth-child(2){transform:translateY(26px)}
+.bs2card:nth-child(3){transform:translateY(52px);opacity:.75}
+.bprog{position:absolute;bottom:24px;right:9%;left:9%;height:2px;background:#ffffff14;z-index:20}
+.bprog i{position:absolute;top:0;right:0;width:38%;height:100%;background:var(--a-amber)}
+footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <span class="tag"><i></i>הצעת עיצוב · מוקאפ להדגמה בלבד</span>
+    <div class="kicker">מורשת קרב · אפליקציית מפת מורשת</div>
+    <h1>מה קרה כאן?</h1>
+    <p class="lead">שלושה כיווני עיצוב שונים מהיסוד לאפליקציה שעונה על שאלה אחת: מפקד, חייל או בן משפחה עומדים בנקודה בשטח, ורוצים לדעת מה קרה בדיוק שם. כל כיוון בנוי מקונספט רעיוני אחר, קהל מוביל אחר, שפה ויזואלית אחרת וטיפוגרפיה משלו. בסוף העמוד: הדמיה ראשונית לאתר המזמין ברוח Lusion.</p>
+    <div class="brieftxt">
+      <p>"מפקד מגיע לגזרה, לוחץ על המיקום שלו ואומר: מה היה פה לידי? ואז הוא רואה איזה יחידות נלחמו לידו, איזה חיילים נפלו בקרב, מדבר על זה עם החיילים, <b>מחבר אותם</b>... אנחנו רוצים לייצר אפליקציה שנראית טוב, שהמטרה שלה היא לרכז מורשת קרב. זה נושא רגיש, והמון מידע על קרבות שהיו ועל חיילים שנפלו."</p>
+    </div>
+    <div class="heromedia">
+      <a href="https://moreset-krav.vercel.app/" target="_blank">↗ האתר הקיים (נקודת המוצא)</a>
+      <span>6 קרבות מתועדים</span>
+      <span>54 לוחמים שנפלו</span>
+      <span>60 רשומות · פיילוט רצועת עזה</span>
+    </div>
+  </div>
+</header>
+
+<nav class="navjump">
+  <div class="wrap">
+    <a href="#concept-a">קו א' · אור זיכרון</a>
+    <span class="sep">|</span>
+    <a href="#concept-b">קו ב' · שכבות האדמה</a>
+    <span class="sep">|</span>
+    <a href="#concept-c">קו ג' · תיק גזרה</a>
+    <span class="sep">|</span>
+    <a href="#compare">השוואה</a>
+    <span class="sep">|</span>
+    <a href="#site-demo">האתר המזמין · Lusion</a>
+  </div>
+</nav>
+
+<!-- ================= קו א ================= -->
+<section class="concept thm-a" id="concept-a">
+  <div class="wrap">
+    <div class="concept-head">
+      <div>
+        <div class="cnum">קו א' · CONCEPT 01</div>
+        <div class="cname">אור זיכרון</div>
+        <div class="csub">המפה כטקס · כל נופל הוא נקודת אור בחושך</div>
+        <p class="cdesc">
+          <b>הקונספט בשני משפטים:</b> מלמעלה, בלילה, רצועת עזה חשוכה. כל מקום שבו נפל לוחם הוא נקודת אור קטנה, והאפליקציה היא הדרך לגשת לאור הזה: להתקרב, להכיר את האדם, ולהדליק נר משלך.
+        </p>
+        <p class="cdesc" style="margin-top:16px">
+          <b>המעבר (הרעיון שמעבר):</b> מסורת ישראל מסמנת זיכרון בפעולה פיזית קטנה: אבן על קבר, נר נשמה. הקו הזה מתרגם את הפעולה הזאת לדיגיטל. המשתמש לא "צורך מידע", הוא משתתף בטקס: כל צפייה בסיפור, כל נר שמודלק, מגביר בפועל את הזוהר של הנקודה על המפה. <b>זיכרון קולקטיבי שאפשר לראות מהאוויר.</b> ביום הזיכרון, המפה כולה נדלקת.
+        </p>
+        <div class="flow">
+          <h5>ההיגיון הפנימי של המסכים · מבנה של טקס</h5>
+          <div class="steps">
+            <b><i>נכנסים</i></b><span>←</span><b><i>רואים את האורות</i></b><span>←</span><b><i>מתקרבים לקרב</i></b><span>←</span><b><i>עוברים את המסע</i></b><span>←</span><b><i>פוגשים אדם</i></b><span>←</span><b><i>מדליקים נר</i></b><span>←</span><b><i>זוכרים יחד</i></b>
+          </div>
+          <p>כל מסך הוא שלב בטקס, מהחושך אל האור: פתיחה שקטה, מבט מלמעלה, ירידה אל סיפור אחד, מפגש עם אדם אחד, פעולת זיכרון אחת, וחזרה אל הכלל בקיר האור. הקצב איטי בכוונה, אין פיד ואין אינסוף.</p>
+        </div>
+      </div>
+      <div class="logicbox">
+        <h4>ההיגיון של הקו</h4>
+        <ul>
+          <li><b>רגש לפני מידע.</b> הנתונים קיימים באתרי היחידות. מה שאין בשום מקום זה חוויה שגורמת לעצור ולהרגיש. זה הפער שהקו הזה סוגר.</li>
+          <li><b>סיפור קרב = מסע גלילה קולנועי</b> בשיטת ה-scrollytelling של הניו יורק טיימס: פרק אחר פרק, שעה אחר שעה, המפה זזה מתחת לטקסט.</li>
+          <li><b>אינטראקציה אחת חזקה:</b> "הדלק נר". פשוטה, מדידה, ויראלית (משתפים "הדלקתי נר לזכרו של..."), ומכבדת.</li>
+          <li><b>למשפחות זה בית.</b> דף הנופל בנוי כמצבה חיה: ביוגרפיה, הקלטות של חברים, ומונה נרות שמוכיח שזוכרים.</li>
+        </ul>
+        <div class="metagrid">
+          <div>
+            <h5>פלטה</h5>
+            <div class="swatches">
+              <div class="sw" style="background:#050a14"><span>#050A14</span></div>
+              <div class="sw" style="background:#101d33"><span>#101D33</span></div>
+              <div class="sw" style="background:#f2b64d"><span>#F2B64D</span></div>
+              <div class="sw" style="background:#f3ecdd"><span>#F3ECDD</span></div>
+            </div>
+          </div>
+          <div>
+            <h5>טיפוגרפיה</h5>
+            <div class="typo" style="font-family:'David Libre',serif;font-size:17px">דוד (David Libre) · שמות וציטוטים. הגופן של יזכור וטקסי המדינה</div>
+            <div class="typo" style="font-family:'Assistant',sans-serif">Assistant · ממשק, רך ושקט</div>
+            <div class="typo" style="font-family:'IBM Plex Mono',monospace;font-size:12px">IBM Plex Mono · שעות וקואורדינטות</div>
+          </div>
+        </div>
+        <div style="margin-top:26px">
+          <h5 style="font-size:12px;letter-spacing:.18em;font-weight:700;opacity:.6;margin-bottom:10px">רפרנסים שהוזנו לקו</h5>
+          <div class="refs">
+            <span>The Fallen of WWII (fallen.io)</span>
+            <span>9/11 Memorial Timescape</span>
+            <span>NYT War Scrollytelling</span>
+            <span>Igloo Inc · SOTY 2024</span>
+            <span>Zentry · clip reveal</span>
+            <span>נר נשמה · אבן על קבר</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- מסכים קו א -->
+    <div class="screens">
+
+      <!-- א0 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen a-journey" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+            <div style="position:absolute;inset:0;background:radial-gradient(240px 300px at 50% 42%, #14243f55 0%, transparent 70%)"></div>
+            <div class="flameanim" style="font-size:44px;margin-bottom:22px;filter:drop-shadow(0 0 18px #f2b64d88)">🕯</div>
+            <div style="font-family:'David Libre',serif;font-size:44px;font-weight:700;color:#f6f0e2;letter-spacing:.04em">יזכור</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8b97ad;margin:14px 0 34px;line-height:2">מפת מורשת · רצועת עזה<br>54 סיפורים · 6 קרבות</div>
+            <div style="width:180px;height:48px;border:1px solid #f2b64d66;border-radius:100px;display:flex;align-items:center;justify-content:center;color:#f2b64d;font-size:14px;font-weight:600;background:#f2b64d0d">כניסה</div>
+            <div style="position:absolute;bottom:30px;left:0;right:0;font-size:10.5px;color:#5d6a82">לזכר הנופלים במערכה בדרום</div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN A-00</div>
+          <h6>שער כניסה · רגע של כוונה</h6>
+          <ul>
+            <li>אין "דף בית". נכנסים כמו לאנדרטה: נר אחד, מילה אחת בגופן דוד, כפתור אחד.</li>
+            <li>שתי שניות של שקט לפני המפה. המסך מכוון את המשתמש לקצב של המקום.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- א1 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen a-map">
+            <svg class="roads" viewBox="0 0 308 648" fill="none">
+              <path d="M40 648 C80 500 60 380 120 300 C170 230 150 120 190 0" stroke="#22334f" stroke-width="2"/>
+              <path d="M0 420 C90 400 180 430 308 380" stroke="#1c2a42" stroke-width="1.4"/>
+              <path d="M0 250 C100 260 200 220 308 240" stroke="#1c2a42" stroke-width="1.2"/>
+              <path d="M120 648 C140 560 200 520 230 440 C260 370 240 280 280 200" stroke="#1c2a42" stroke-width="1.3"/>
+              <path d="M20 100 C80 130 160 90 240 110" stroke="#182540" stroke-width="1"/>
+            </svg>
+            <div class="dotlight" style="top:24%;right:38%"></div>
+            <div class="dotlight sm d2" style="top:33%;right:60%"></div>
+            <div class="dotlight sm d3" style="top:47%;right:30%"></div>
+            <div class="dotlight d2" style="top:55%;right:55%"></div>
+            <div class="dotlight sm" style="top:64%;right:42%"></div>
+            <div class="a-top">
+              <div class="a-avatar">☰</div>
+              <div class="a-search">⌕&nbsp; חפש שם, יחידה, קרב...</div>
+            </div>
+            <div class="a-chips">
+              <div class="a-chip on">🕯 נופלים</div>
+              <div class="a-chip">קרבות</div>
+              <div class="a-chip">יחידות</div>
+              <div class="a-chip">ציר זמן</div>
+            </div>
+            <div class="a-sheet">
+              <div class="grab"></div>
+              <div class="a-q"><span class="flame flameanim">🕯</span> מה קרה כאן?</div>
+              <div class="a-loc">31°32'N 34°29'E · בית חאנון · 240 מ' ממך</div>
+              <div class="a-statrow">
+                <div class="a-stat"><b>6</b><span>קרבות</span></div>
+                <div class="a-stat"><b>54</b><span>נקודות אור</span></div>
+                <div class="a-stat"><b>12,408</b><span>נרות הודלקו</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN A-01</div>
+          <h6>המפה בלילה · מסך הבית</h6>
+          <ul>
+            <li>לוויין לילי כהה. אין ריבוי צבעים: רק חושך, ונקודות אור ענבר שנושמות באנימציה איטית.</li>
+            <li>שכבות המידע הפכו לצ'יפים בשפה אנושית: נופלים, קרבות, יחידות, ציר זמן. ברירת המחדל היא האנשים, לא הנתונים.</li>
+            <li>ה-Bottom Sheet שואל את שאלת הליבה "מה קרה כאן?" ומציג את מונה הנרות החי של כל המדינה.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- א2 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen a-battle">
+            <div class="a-bmap"><div class="dotlight"></div></div>
+            <div class="a-bcard">
+              <span class="a-btag">קרב · סבב ראשון</span>
+              <div class="a-btitle">קרב בית חאנון</div>
+              <div class="a-bmeta">אוקטובר 2023 - דצמבר 2023 · אוגדה 252<br>19 לוחמים נפלו בקרב הזה</div>
+              <div class="a-tl">
+                <div><b>27.10</b>תחילת התמרון הקרקעי בצפון הרצועה</div>
+                <div><b>05.11</b>הלחימה על בית חאנון</div>
+                <div><b>18.12</b>סיום הסבב · העברת הגזרה</div>
+              </div>
+              <div class="a-faces">
+                <div class="a-face">א</div><div class="a-face">ד</div><div class="a-face">י</div><div class="a-face">מ</div><div class="a-face">ר</div><div class="a-face more">14+</div>
+              </div>
+              <div class="a-cta">▶ &nbsp;התחל את המסע · 4 פרקים</div>
+              <div class="a-cta2">7 דקות · מבוסס על עדויות הלוחמים ואישור מג"ד</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN A-02</div>
+          <h6>כרטיס קרב · שער הכניסה לסיפור</h6>
+          <ul>
+            <li>לחיצה על נקודת אור פותחת כרטיס. לא טבלה: כותרת סריפית גדולה, ציר זמן מואר של רגעי המפתח.</li>
+            <li>רצועת הפנים של הנופלים היא הלב: הקרב מסופר דרך האנשים שנפלו בו, לא דרך החיצים על המפה.</li>
+            <li>CTA אחד ויחיד: "התחל את המסע". חוויה בזמן קצוב וידוע (7 דקות), כמו פרק בסדרה.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- א3 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen a-journey">
+            <div class="a-jmapghost"></div>
+            <div class="a-prog"><i class="done"></i><i class="now"></i><i></i><i></i></div>
+            <div class="a-ch">פרק 3 מתוך 4 · האנשים</div>
+            <div class="a-jbody">
+              <div class="a-time">03.11.2023 · צפון הרצועה</div>
+              <div class="a-jtxt">"בשביל המלחמה הזו <em>התאמנתי והשקעתי.</em>"<br><span style="font-size:15px;color:#9daabf">כך אמר סמ"ר גלעד נחמיה ניצן ז"ל, לוחם סיירת גבעתי, שנפל בקרב בצפון הרצועה בי"ט במרחשוון תשפ"ד.</span></div>
+              <div class="a-jsrc">מדבריו, כפי שסיפר רבו, הרב דוד אמיתי · מקורות הנצחה פומביים</div>
+            </div>
+            <div class="a-scrollhint">גלול להמשך המסע ↓</div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN A-03</div>
+          <h6>המסע · סיפור הקרב בגלילה</h6>
+          <ul>
+            <li>Scrollytelling מלא: כל גלילה מקדמת פרק, המפה נעה ומתקרבת מתחת לטקסט אל הנקודה המדוברת.</li>
+            <li>הטקסט בגופן סריפי גדול, ציטוטים מודגשים בענבר. קצב קריאה של טקס, לא של פיד.</li>
+            <li>פס ההתקדמות למעלה בנוי כמו סטורי: ברור כמה נשאר, אפשר לדלג בין פרקים.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- א4 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen a-fallen">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.5" viewBox="0 0 308 648" fill="none">
+              <path d="M30 648 C70 500 50 380 110 300 C160 230 140 120 180 0" stroke="#1c2a42" stroke-width="1.6"/>
+              <path d="M0 400 C90 380 180 410 308 360" stroke="#182540" stroke-width="1.2"/>
+              <path d="M0 240 C100 250 200 210 308 230" stroke="#182540" stroke-width="1"/>
+            </svg>
+            <div style="position:absolute;top:100px;right:48px;width:11px;height:11px;border-radius:50%;background:#ffd98c;box-shadow:0 0 16px 5px #f2b64d99;z-index:2;animation:breath 3.2s infinite"></div>
+            <div style="position:absolute;top:75px;right:23px;width:61px;height:61px;border-radius:50%;border:1.5px solid #f2b64d55;z-index:2;animation:ring 2.8s ease-out infinite"></div>
+            <div style="position:absolute;top:132px;right:14px;font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#c7b995;background:#0d1626cc;border:1px solid #ffffff22;border-radius:6px;padding:3px 8px;z-index:2">נקודת הנפילה</div>
+            <div class="a-halo" style="background:url('assets/gilad.jpg') center 18%/cover;color:transparent">·</div>
+            <div class="a-fname">
+              <h3>סמ"ר גלעד נחמיה ניצן ז"ל</h3>
+              <p>לוחם סיירת גבעתי · נפל בקרב בצפון הרצועה · 3.11.2023</p>
+            </div>
+            <div class="a-bio">בנם של יהודית רבקה ויעקב. נולד ב' באב תשס"ב בשילה, אח לאיתן, לבונה, שחר, לביא, פאר והדס. ילד שמח, שובב ומתוק, שחיוך גדול מעטר תמיד את פניו. למד בישיבה התיכונית "צביה" בדימונה.</div>
+            <div class="a-candlerow">
+              <div class="a-candle"><span class="flameanim">🕯</span> הדלק נר לזכרו</div>
+              <div class="a-voice">🎙 מילים מהחברים</div>
+            </div>
+            <div class="a-count"><b>1,247</b> נרות הודלקו לזכרו · 89 היום</div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN A-04</div>
+          <h6>דף נופל · מצבה חיה</h6>
+          <ul>
+            <li>דיוקן בהילת אור, שם בסריף גדול, והביוגרפיה שהמשפחה אישרה (זכות וטו מלאה, כמו בדק של שמעון).</li>
+            <li>"מילים מהחברים": הקלטות קול קצרות של חברים לנשק. תוכן גולש שעובר אישור משפחה ומג"ד.</li>
+            <li>מונה הנרות נותן למשפחה את הדבר החשוב באמת: הוכחה יומיומית שזוכרים אותו.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- א5: הדלקת נר -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen a-fallen" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 26px">
+            <div style="position:absolute;inset:0;background:radial-gradient(200px 260px at 50% 38%, #f2b64d14 0%, transparent 70%)"></div>
+            <div class="flameanim" style="font-size:56px;filter:drop-shadow(0 0 26px #f2b64daa);margin-bottom:24px">🕯</div>
+            <div style="font-family:'David Libre',serif;font-size:22px;font-weight:700;color:#f6f0e2;line-height:1.5">הנר שלך דולק<br>לזכר סמ"ר גלעד נחמיה ניצן ז"ל</div>
+            <div style="font-size:12px;color:#8b97ad;margin:16px 0 6px">הנר יישאר דלוק על המפה 24 שעות</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#f2b64d;margin-bottom:30px">אתה האדם ה-1,248 שמדליק לזכרו</div>
+            <div style="width:100%;height:50px;border-radius:14px;background:linear-gradient(120deg,#f2b64d,#e39b25);color:#201804;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px">שתף עם החברים מהמחלקה</div>
+            <div style="width:100%;height:46px;border-radius:14px;border:1px solid #ffffff26;color:#c5cede;font-size:12.5px;display:flex;align-items:center;justify-content:center;margin-top:10px">הוסף מילים משלך למשפחה</div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN A-05</div>
+          <h6>אישור הנר · הרגע שמשתפים</h6>
+          <ul>
+            <li>הפעולה הקטנה מקבלת משקל: מסך מלא, מונה אישי ("האדם ה-1,248"), והבטחה שהנר נראה על המפה.</li>
+            <li>זה מנוע הצמיחה של הקו: שיתוף לוואטסאפ של המחלקה מזמין עוד אנשים להדליק. זיכרון שמתפשט.</li>
+            <li>ערוץ מילים למשפחה עובר סינון ואישור לפני שמוצג, לפי עקרון הווטו מהדק.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- א6 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen a-wall">
+            <div class="a-wallhead">
+              <h3>יזכור</h3>
+              <p>54 נקודות אור · רצועת עזה · תשפ"ד-תשפ"ו</p>
+            </div>
+            <div class="a-wgrid">
+              <div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div>
+              <div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div>
+              <div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div>
+              <div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div>
+              <div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div>
+              <div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div>
+              <div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div>
+              <div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div>
+              <div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div><div class="a-w"></div>
+            </div>
+            <div class="a-wallfoot">ביום הזיכרון הקיר נדלק כולו בו-זמנית.<br><b>לחיצה על אור = כניסה לסיפור של אדם.</b></div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN A-06 · אופציונלי</div>
+          <h6>קיר האור · מסך יזכור (לדיון)</h6>
+          <ul>
+            <li>כל הנופלים כשדה של אורות נושמים. בלי גלילת רשימות אינסופית: חוויה אחת שקטה ועוצמתית.</li>
+            <li>אפשר לסנן לפי יחידה, יישוב או תאריך, וכל אור נפתח לדף הנופל.</li>
+            <li>המסך הזה הוא גם מוצר לימי זיכרון: מוקרן בטקסים, בבתי ספר ובאנדרטאות כמסך חי.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= קו ב ================= -->
+<section class="concept thm-b" id="concept-b">
+  <div class="wrap">
+    <div class="concept-head">
+      <div>
+        <div class="cnum">קו ב' · CONCEPT 02</div>
+        <div class="cname">שכבות האדמה</div>
+        <div class="csub">מכשיר שטח למפקד · האדמה זוכרת בשכבות</div>
+        <p class="cdesc">
+          <b>הקונספט בשני משפטים:</b> כמו בארכיאולוגיה, כל קואורדינטה מחזיקה שכבות של זמן: מה שקורה בה היום, מה שקרה בה במלחמה, ומה שיקרה בה מחר. האפליקציה היא מכשיר שטח שנותן למפקד "לחפור" בזמן בנקודה שבה הוא עומד, ולהפוך את מה שמצא לתדריך מוכן לחיילים שלו.
+        </p>
+        <p class="cdesc" style="margin-top:16px">
+          <b>המעבר (הרעיון שמעבר):</b> זה בדיוק הסיפור מההקלטה של שמעון: מג"ד שעומד בג'באליה ורוצה לעשות טקס לנופלי המקום, ואין לו כלום. הקו הזה לא בונה "אתר הנצחה", הוא בונה <b>ציוד: כלי עבודה צה"לי בסטנדרט של עמוד ענן,</b> קריא באור שמש, עובד בכפפות, ומייצר בלחיצה אחת תדריך מורשת של 5 דקות לכל נקודה בגזרה. ההנצחה קורית כתוצר של שימוש יומיומי.
+        </p>
+        <div class="flow">
+          <h5>ההיגיון הפנימי של המסכים · יום עבודה של מפקד</h5>
+          <div class="steps">
+            <b><i>מוריד גזרה</i></b><span>←</span><b><i>עומד בשטח</i></b><span>←</span><b><i>סורק סביבו</i></b><span>←</span><b><i>חופר בזמן</i></b><span>←</span><b><i>מקבל תדריך</i></b><span>←</span><b><i>רואה את היחידה</i></b><span>←</span><b><i>מזין בחזרה</i></b>
+          </div>
+          <p>כל מסך הוא תחנה ביום העבודה: הכנה לפני יציאה, התמצאות, שאלת הליבה, העמקה, תוצר מוכן לכוח, וסגירת המעגל בהזנת מידע חדש מהשטח. כלי עבודה, לא אתר תוכן.</p>
+        </div>
+      </div>
+      <div class="logicbox">
+        <h4>ההיגיון של הקו</h4>
+        <ul>
+          <li><b>המשתמש עומד בשמש, עם כוח שממתין.</b> לכן: רקע בהיר, ניגודיות גבוהה, כפתורים גדולים, אפס קישוטים. עיצוב של מכשיר, לא של אתר.</li>
+          <li><b>"מה קרה כאן?" = סריקה.</b> לחיצה אחת סורקת רדיוס 500 מ' ומחזירה אירועים לפי מרחק וכיוון הליכה. שימושי גם בלי קליטה טובה (offline-first).</li>
+          <li><b>חוגת הזמן היא האינטראקציה המרכזית:</b> גוררים בין "היום", סבבי הלחימה ו-7.10, והמפה מחליפה שכבה. עתיד: 2005, 1948.</li>
+          <li><b>תדריך העמדה הוא מוצר הקצה:</b> האפליקציה כותבת למפקד דף תדריך מובנה מהרשומות המאומתות. זה מה שהופך מידע למורשת חיה.</li>
+        </ul>
+        <div class="metagrid">
+          <div>
+            <h5>פלטה</h5>
+            <div class="swatches">
+              <div class="sw" style="background:#e9e1cf"><span>#E9E1CF</span></div>
+              <div class="sw" style="background:#20242c"><span>#20242C</span></div>
+              <div class="sw" style="background:#5c6b4c"><span>#5C6B4C</span></div>
+              <div class="sw" style="background:#d9700f"><span>#D9700F</span></div>
+            </div>
+          </div>
+          <div>
+            <h5>טיפוגרפיה</h5>
+            <div class="typo" style="font-family:'Secular One',sans-serif;font-size:16px">Secular One · כותרות פקודה, חד וממסדי</div>
+            <div class="typo" style="font-family:'IBM Plex Sans Hebrew',sans-serif">IBM Plex Sans Hebrew · גוף טכני</div>
+            <div class="typo" style="font-family:'IBM Plex Mono',monospace;font-size:12px">IBM Plex Mono · נ"צ, מרחק, אזימוט</div>
+          </div>
+        </div>
+        <div style="margin-top:26px">
+          <h5 style="font-size:12px;letter-spacing:.18em;font-weight:700;opacity:.6;margin-bottom:10px">רפרנסים שהוזנו לקו</h5>
+          <div class="refs">
+            <span>ממשקי חמ"ל ועמוד ענן</span>
+            <span>Telescope · layered zoom</span>
+            <span>Active Theory · engine feel</span>
+            <span>SSTR · תעשייה כחוויה</span>
+            <span>סטרטיגרפיה ארכיאולוגית</span>
+            <span>מפות טופוגרפיות צה"ל</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- מסכים קו ב -->
+    <div class="screens">
+
+      <!-- ב0 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen b-scanres">
+            <div class="b-srhead">
+              <h3>חבילות גזרה</h3>
+              <div class="mono">הורד לפני יציאה · עובד ללא קליטה</div>
+            </div>
+            <div class="b-cards" style="top:130px">
+              <div class="b-card" style="border-color:#5c6b4c;border-width:1.5px">
+                <div class="b-dist"><b style="color:#5c6b4c;font-size:13px">✓</b><span>מותקן</span></div>
+                <div class="b-cbody">
+                  <h4>בית חאנון צפון</h4>
+                  <p>84MB · מפות, 60 רשומות, 12 הקלטות · עודכן היום</p>
+                  <div class="b-ctags"><span class="b-ctag olive">פעיל כעת</span><span class="b-ctag">offline מלא</span></div>
+                </div>
+              </div>
+              <div class="b-card">
+                <div class="b-dist"><b style="font-size:13px">72%</b><span>מוריד...</span></div>
+                <div class="b-cbody">
+                  <h4>ג'באליה</h4>
+                  <p>112MB · קרב ג'באליה הראשון, 56 נופלים</p>
+                  <div style="height:5px;background:#eee7d4;border-radius:5px;margin-top:9px;overflow:hidden"><div style="width:72%;height:100%;background:#d9700f"></div></div>
+                </div>
+              </div>
+              <div class="b-card" style="opacity:.75">
+                <div class="b-dist"><b style="font-size:13px">↓</b><span>96MB</span></div>
+                <div class="b-cbody">
+                  <h4>מחנות המרכז</h4>
+                  <p>אוגדה 99 · 21 נופלים · 3 סבבים</p>
+                </div>
+              </div>
+              <div class="b-card" style="opacity:.75">
+                <div class="b-dist"><b style="font-size:13px">↓</b><span>78MB</span></div>
+                <div class="b-cbody">
+                  <h4>ציר פילדלפי</h4>
+                  <p>בהזנה · יעלה עם אישור ב"מ</p>
+                </div>
+              </div>
+            </div>
+            <div class="b-tabbar">
+              <div class="b-tab on"><span class="ic">◉</span>שטח</div>
+              <div class="b-tab"><span class="ic">≋</span>שכבות</div>
+              <div class="b-tab"><span class="ic">▤</span>תדריכים</div>
+              <div class="b-tab"><span class="ic">✚</span>הוסף</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN B-00</div>
+          <h6>חבילות גזרה · הכנה לפני יציאה</h6>
+          <ul>
+            <li>הנחת היסוד של הקו: בשטח אין קליטה. מורידים את הגזרה מראש, והכול עובד מקומית.</li>
+            <li>כל חבילה מציגה מה יש בפנים: מפות, רשומות, הקלטות, ותאריך עדכון. שקיפות של ציוד.</li>
+            <li>זה גם מסך הניהול: רואים אילו גזרות מתועדות ואילו עדיין בהזנה.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ב1 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen b-field">
+            <svg class="contours" viewBox="0 0 308 648" fill="none">
+              <path d="M-20 120 C60 90 140 150 320 110" stroke="#b8a985" stroke-width="1"/>
+              <path d="M-20 170 C70 140 150 200 320 160" stroke="#b8a985" stroke-width="1"/>
+              <path d="M-20 220 C80 190 160 250 320 210" stroke="#c2b490" stroke-width="1"/>
+              <path d="M-20 300 C90 270 170 330 320 290" stroke="#b8a985" stroke-width="1"/>
+              <path d="M-20 360 C100 330 180 390 320 350" stroke="#c2b490" stroke-width="1"/>
+              <path d="M-20 430 C90 410 200 460 320 420" stroke="#b8a985" stroke-width="1"/>
+              <path d="M-20 500 C100 470 190 520 320 490" stroke="#c2b490" stroke-width="1"/>
+              <path d="M60 648 C90 520 70 420 130 320 C180 240 160 120 200 0" stroke="#a08d63" stroke-width="2.2" stroke-dasharray="7 5"/>
+            </svg>
+            <div class="b-hud">
+              <div class="c"><b>31°32.41'N 34°29.83'E</b><br>אזימוט 042° · דיוק GPS 4 מ'</div>
+              <div class="lay">שכבה: 10.2023</div>
+            </div>
+            <div class="b-layers">
+              <div class="b-layerbtn">≡</div>
+              <div class="b-layerbtn">◎</div>
+              <div class="b-layerbtn">✚</div>
+            </div>
+            <div class="b-mering"></div>
+            <div class="b-me"></div>
+            <div class="b-ev" style="top:28%;right:30%"><div class="pin">▲</div><div class="lbl">קרב · 240 מ'</div></div>
+            <div class="b-ev" style="top:38%;right:66%"><div class="pin">✦</div><div class="lbl">נופל · 410 מ'</div></div>
+            <div class="b-ev" style="top:60%;right:24%"><div class="pin">▲</div><div class="lbl">קרב · 520 מ'</div></div>
+            <div class="b-scan"><i></i> מה קרה כאן?</div>
+            <div class="b-tabbar">
+              <div class="b-tab on"><span class="ic">◉</span>שטח</div>
+              <div class="b-tab"><span class="ic">≋</span>שכבות</div>
+              <div class="b-tab"><span class="ic">▤</span>תדריכים</div>
+              <div class="b-tab"><span class="ic">✚</span>הוסף</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN B-01</div>
+          <h6>מסך שטח · המכשיר</h6>
+          <ul>
+            <li>מפה בהירה בסגנון טופוגרפי, קריאה בשמש ישירה. HUD עליון קבוע: נ"צ, אזימוט, דיוק ושכבת הזמן הפעילה.</li>
+            <li>המיקום שלי במרכז, אירועים סביבי מסומנים עם מרחק אמיתי. שפה של ניווט, לא של אתר.</li>
+            <li>כפתור סריקה אחד גדול: "מה קרה כאן?". עובד גם offline על חבילת גזרה שהורדה מראש.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ב2 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen b-scanres">
+            <div class="b-srhead">
+              <div class="bk">→ חזרה למפה</div>
+              <h3>4 גיבורים סביבך</h3>
+              <div class="mono">סריקה ברדיוס 500 מ' · בית חאנון צפון · הסיפורים שקרו כאן לידך</div>
+            </div>
+            <div class="b-cards">
+              <div class="b-card">
+                <div class="b-dist"><b>240</b><span>מ' · צפ-מז</span><span class="arr" style="transform:rotate(30deg)">↑</span></div>
+                <div class="b-cbody">
+                  <h4>הלחימה על הרובע הצפוני</h4>
+                  <p>3 דקות הליכה · כוחות אוגדה 252, הסבב הראשון</p>
+                  <div class="b-ctags"><span class="b-ctag olive">אוגדה 252</span><span class="b-ctag">12 עדויות</span></div>
+                </div>
+              </div>
+              <div class="b-card">
+                <div class="b-dist"><b>410</b><span>מ' · מערב</span><span class="arr" style="transform:rotate(-60deg)">↑</span></div>
+                <div class="b-cbody">
+                  <h4>נקודת נפילתו של סמ"ר גלעד נחמיה ניצן ז"ל</h4>
+                  <p>6 דקות הליכה · לוחם סיירת גבעתי · 3.11.2023</p>
+                  <div class="b-ctags"><span class="b-ctag olive">סיירת גבעתי</span><span class="b-ctag">סיפור מלא</span></div>
+                </div>
+              </div>
+              <div class="b-card">
+                <div class="b-dist"><b>520</b><span>מ' · דרום</span><span class="arr" style="transform:rotate(180deg)">↑</span></div>
+                <div class="b-cbody">
+                  <h4>ציר הכניסה של אוגדה 252 · סבב ראשון</h4>
+                  <p>8 דקות הליכה · 27.10.2023</p>
+                  <div class="b-ctags"><span class="b-ctag olive">אוגדה 252</span><span class="b-ctag sig">19 נפלו בסבב</span></div>
+                </div>
+              </div>
+              <div class="b-card" style="opacity:.55">
+                <div class="b-dist"><b>1.2</b><span>ק"מ · צפון</span><span class="arr">↑</span></div>
+                <div class="b-cbody">
+                  <h4>קרב ג'באליה הראשון</h4>
+                  <p>מחוץ לרדיוס · הרחב סריקה לצפייה</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN B-02</div>
+          <h6>תוצאות סריקה · לפי מרחק וכיוון</h6>
+          <ul>
+            <li>התשובה לשאלת הליבה מסודרת כמו מכשיר ניווט: מרחק במטרים, כיוון בחץ מסתובב, זמן הליכה.</li>
+            <li>כל כרטיס מתייג יחידה, נופלים ועדויות. המפקד יודע תוך 5 שניות מה יש סביבו ולאן ללכת.</li>
+            <li>אירועים מחוץ לרדיוס מוצגים דהויים: הזמנה להרחיב, בלי רעש.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ב3 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen b-time">
+            <div class="b-ghost"></div>
+            <svg class="contours" viewBox="0 0 308 648" fill="none" style="position:absolute;inset:0;width:100%;height:100%;opacity:.4">
+              <path d="M-20 140 C60 110 140 170 320 130" stroke="#b8a985" stroke-width="1"/>
+              <path d="M-20 210 C80 180 160 240 320 200" stroke="#b8a985" stroke-width="1"/>
+              <path d="M-20 290 C90 260 170 320 320 280" stroke="#c2b490" stroke-width="1"/>
+              <path d="M-20 370 C100 340 180 400 320 360" stroke="#b8a985" stroke-width="1"/>
+            </svg>
+            <div class="b-me" style="top:36%"></div>
+            <div class="b-nowlabel">אתה צופה ב: אוקטובר 2023</div>
+            <div class="b-diff">
+              <div class="b-diffchip">+ 2 קרבות פעילים</div>
+              <div class="b-diffchip">+ ציר כניסה</div>
+              <div class="b-diffchip">מבנים שנהרסו</div>
+            </div>
+            <div class="b-ev" style="top:30%;right:28%"><div class="pin">▲</div><div class="lbl">אוגדה 252 · כאן</div></div>
+            <div class="b-ev" style="top:46%;right:60%"><div class="pin">✦</div><div class="lbl">2 נפלו</div></div>
+            <div class="b-dial">
+              <div class="grab"></div>
+              <h4>חוגת הזמן · גרור בין שכבות</h4>
+              <div class="b-track">
+                <div class="line"></div>
+                <div class="b-stop" style="right:2%"><i></i>היום</div>
+                <div class="b-stop" style="right:20%"><i></i>2024</div>
+                <div class="b-stop on" style="right:40%"><i></i>10.2023</div>
+                <div class="b-stop" style="right:62%"><i></i>7.10</div>
+                <div class="b-stop" style="right:80%;opacity:.45"><i></i>2005</div>
+              </div>
+              <div class="b-dialfoot">שכבות 1948 ו-2005 · בפיתוח, מוצגות כחזון</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN B-03</div>
+          <h6>חוגת הזמן · אותה נקודה, זמנים אחרים</h6>
+          <ul>
+            <li>האינטראקציה החתומה של הקו: גרירה בין שכבות זמן מחליפה את המפה ואת האירועים סביבך.</li>
+            <li>צ'יפים של "מה השתנה" מסכמים את ההבדל בין השכבות: קרבות שנפתחו, צירים, הרס.</li>
+            <li>המבנה מוכן להרחבת החזון של שמעון: 2005, 1948, כל ישראל. פשוט עוד עצירות על החוגה.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ב4 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen b-brief">
+            <div class="b-bhead">
+              <div class="bk">→ חזרה</div>
+              <div class="tag">נוצר מ-12 רשומות מאומתות</div>
+            </div>
+            <div class="b-doc">
+              <div class="stamp"><span>תדריך עמדה · 31°32'N</span><span>16.07.2026</span></div>
+              <h3>בית חאנון צפון · תדריך מורשת</h3>
+              <div class="sub">5 דקות · מותאם לעמידה בשטח מול הכוח</div>
+              <div class="b-sec">
+                <div class="n">1</div>
+                <div><h5>פתיחה: איפה אנחנו עומדים</h5><p>אתם עומדים 240 מ' מציר הכניסה של הסבב הראשון. לפני שנתיים בדיוק כאן...</p></div>
+                <div class="t">30 שנ'</div>
+              </div>
+              <div class="b-sec">
+                <div class="n">2</div>
+                <div><h5>הקרב: מה קרה כאן</h5><p>הסבב הראשון נפתח ב-27.10.23. כוחות אוגדה 252 לחמו כאן עד דצמבר...</p></div>
+                <div class="t">2 דק'</div>
+              </div>
+              <div class="b-sec">
+                <div class="n">3</div>
+                <div><h5>האנשים: הנופלים בגזרה</h5><p>סמ"ר גלעד נחמיה ניצן ז"ל, בן 21 משילה, לוחם סיירת גבעתי. נפל בקרב ב-3.11.23...</p></div>
+                <div class="t">2 דק'</div>
+              </div>
+              <div class="b-sec">
+                <div class="n">4</div>
+                <div><h5>שאלה לסגירה</h5><p>"מה מהמקום הזה אתם לוקחים איתכם הביתה?" · דקת דומייה.</p></div>
+                <div class="t">30 שנ'</div>
+              </div>
+            </div>
+            <div class="b-briefbar">
+              <div class="b-bb1">🎙 קרא בקול</div>
+              <div class="b-bb2">שתף לקבוצה</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN B-04</div>
+          <h6>תדריך עמדה · המוצר שיוצא מהאפליקציה</h6>
+          <ul>
+            <li>לחיצה אחת הופכת את רשומות הנקודה לתדריך בנוי: פתיחה, הקרב, האנשים, שאלת סגירה. עם זמנים.</li>
+            <li>"קרא בקול" לקריינות בשטח, ושיתוף לקבוצת הפלוגה בוואטסאפ. זה הרגע שבו מידע נהיה מורשת.</li>
+            <li>חותמת "נוצר מרשומות מאומתות" שומרת על עיקרון האמינות מהדק: אין המצאות, רק מקורות שאושרו.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ב5 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen b-unit">
+            <div class="b-uhead">
+              <div class="em">🛡</div>
+              <h3>סיירת גבעתי</h3>
+              <p>חטיבת גבעתי · 14 רשומות בגזרה בסבב הראשון</p>
+            </div>
+            <div class="b-utl">
+              <div class="row">
+                <div class="d">27.10.23</div>
+                <div><h5>הכניסה הקרקעית <span class="vtag">✓ אושר מג"ד</span></h5><p>החטיבה נכנסת לצפון הרצועה · 4 עדויות, 2 תמונות</p></div>
+              </div>
+              <div class="row">
+                <div class="d">03.11.23</div>
+                <div><h5>הקרב בצפון הרצועה <span class="vtag">✓ אושר מג"ד</span></h5><p>נפילתו של סמ"ר גלעד נחמיה ניצן ז"ל · אושר ע"י המשפחה</p></div>
+              </div>
+              <div class="row">
+                <div class="d">18.12.23</div>
+                <div><h5>סיום הסבב והעברת הגזרה</h5><p>סיכום מבצעי · ממתין לאישור: 2 עדויות חדשות</p></div>
+              </div>
+              <div class="row" style="opacity:.6">
+                <div class="d">03.24</div>
+                <div><h5>סבב 2 · טיוטה בתהליך אימות</h5><p>הוזן ע"י סמ"פ ג' · בבדיקת ב"מ ומג"ד</p></div>
+              </div>
+            </div>
+            <div class="b-fab">✚ הוסף מידע</div>
+            <div class="b-tabbar">
+              <div class="b-tab"><span class="ic">◉</span>שטח</div>
+              <div class="b-tab"><span class="ic">≋</span>שכבות</div>
+              <div class="b-tab"><span class="ic">▤</span>תדריכים</div>
+              <div class="b-tab on"><span class="ic">✚</span>הוסף</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN B-05</div>
+          <h6>דף יחידה · המורשת נכתבת מהשטח</h6>
+          <ul>
+            <li>כל גדוד רואה את ציר האירועים שלו בגזרה, עם סטטוס אימות שקוף: אושר מג"ד, אושר משפחה, בבדיקה.</li>
+            <li>כפתור "הוסף מידע" פותח טופס מובנה (תבנית תמצות אחידה, כמו שהדק דורש) שנכנס לתור אישורים.</li>
+            <li>כך נפתרת בעיית "הזמן עובד נגדנו": הלוחמים עצמם מזינים את הזיכרון כשהוא עוד טרי.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ב6 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen b-brief">
+            <div class="b-bhead">
+              <div class="bk">→ ביטול</div>
+              <div class="tag" style="background:#d9700f">טיוטה · לא פורסם</div>
+            </div>
+            <div class="b-doc" style="top:96px">
+              <h3>הוספת מידע לנקודה</h3>
+              <div class="sub">31°32'N 34°29'E · המיקום הנוכחי שלך</div>
+              <div style="display:flex;gap:7px;margin:4px 0 14px">
+                <span style="flex:1;text-align:center;font-size:11px;font-weight:700;padding:9px 0;border-radius:10px;background:#20242c;color:#f2c266">אירוע קרב</span>
+                <span style="flex:1;text-align:center;font-size:11px;padding:9px 0;border-radius:10px;border:1px solid #ddd6c0;color:#77725f">נופל</span>
+                <span style="flex:1;text-align:center;font-size:11px;padding:9px 0;border-radius:10px;border:1px solid #ddd6c0;color:#77725f">עדות</span>
+              </div>
+              <div style="border:1px solid #ddd6c0;border-radius:12px;padding:11px 13px;font-size:11px;color:#77725f;line-height:1.7;background:#fdfcf6">מה קרה כאן? כתוב בתמצית: מי, מתי, מה.<br><span style="color:#b9b29a">לדוגמה: "הכוח שלנו פעל במבנה הזה בנובמבר 23..."</span></div>
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <span style="font-size:10.5px;border:1px dashed #c9c2a8;border-radius:10px;padding:8px 13px;color:#77725f">📷 צרף תמונה</span>
+                <span style="font-size:10.5px;border:1px dashed #c9c2a8;border-radius:10px;padding:8px 13px;color:#77725f">🎙 הקלט עדות</span>
+              </div>
+              <div style="margin-top:16px;border-top:1px dashed #e0d9c4;padding-top:12px">
+                <div style="font-size:10px;font-weight:700;color:#5c5943;letter-spacing:.08em;margin-bottom:10px">מסלול האימות של הרשומה</div>
+                <div style="display:flex;align-items:center;gap:4px;font-size:9px;color:#77725f;text-align:center">
+                  <span style="flex:1"><b style="display:block;width:22px;height:22px;border-radius:50%;background:#5c6b4c;color:#fff;line-height:22px;margin:0 auto 4px;font-size:10px">✓</b>הזנה</span>
+                  <span style="flex:0 0 14px;color:#c9c2a8">→</span>
+                  <span style="flex:1"><b style="display:block;width:22px;height:22px;border-radius:50%;background:#d9700f;color:#fff;line-height:22px;margin:0 auto 4px;font-size:10px">2</b>ב"מ</span>
+                  <span style="flex:0 0 14px;color:#c9c2a8">→</span>
+                  <span style="flex:1"><b style="display:block;width:22px;height:22px;border-radius:50%;background:#e5decb;color:#8a8676;line-height:22px;margin:0 auto 4px;font-size:10px">3</b>מג"ד</span>
+                  <span style="flex:0 0 14px;color:#c9c2a8">→</span>
+                  <span style="flex:1"><b style="display:block;width:22px;height:22px;border-radius:50%;background:#e5decb;color:#8a8676;line-height:22px;margin:0 auto 4px;font-size:10px">4</b>פרסום</span>
+                </div>
+              </div>
+            </div>
+            <div class="b-briefbar">
+              <div class="b-bb1">שלח לאימות</div>
+              <div class="b-bb2">שמור טיוטה</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN B-06</div>
+          <h6>הוספת מידע · סגירת המעגל</h6>
+          <ul>
+            <li>טופס בשפת הדק של שמעון: פורמט תמציתי מחייב, צירוף תמונה או עדות קולית, ותו לא.</li>
+            <li>מסלול האימות גלוי למזין: הזנה, ביטחון מידע, מג"ד, פרסום. אמון נבנה מהשקיפות הזאת.</li>
+            <li>הרשומה נקשרת אוטומטית לנ"צ שבו אתה עומד. המורשת נכתבת מהמקום עצמו.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= קו ג ================= -->
+<section class="concept thm-c" id="concept-c">
+  <div class="wrap">
+    <div class="concept-head">
+      <div>
+        <div class="cnum">קו ג' · CONCEPT 03</div>
+        <div class="cname">תיק גזרה</div>
+        <div class="csub">תצלומי האוויר האמיתיים · כמו שהצבא רואה, בגובה של הלב</div>
+        <p class="cdesc">
+          <b>הקונספט בשני משפטים:</b> צה"ל מספר "מה קרה כאן" על גבי תצלום אוויר אמיתי. הקו הזה בנוי כולו על צילומי הלוויין והאוויר האמיתיים של הגזרה, בלי איורים ובלי סטייל: התצלום הוא הרקע של כל מסך, והסימון עליו עדין ומדויק, כמו שמסמנים על מפה בחדר תדריכים.
+        </p>
+        <p class="cdesc" style="margin-top:16px">
+          <b>המעבר (הרעיון שמעבר):</b> התצלום האמיתי עושה מה שאף עיצוב לא יכול: רואים את ההרס, את הצירים, את השכונות כמו שהן. על הרקע הזה, כל נקודת אור קטנה של נופל מקבלת משקל אמיתי. <b>האמת של התצלום היא הרגש.</b> הממשק נשאר שקט ונקי, שנהב וכהה, כדי שכל תשומת הלב תישאר על האדמה ועל האנשים.
+        </p>
+        <div class="flow">
+          <h5>ההיגיון הפנימי של המסכים · מהאוויר אל האדם</h5>
+          <div class="steps">
+            <b><i>רואים את הגזרה</i></b><span>←</span><b><i>מזהים נקודה</i></b><span>←</span><b><i>פותחים אירוע</i></b><span>←</span><b><i>משווים לפני/אחרי</i></b><span>←</span><b><i>פוגשים את האדם</i></b><span>←</span><b><i>קוראים את היומן</i></b><span>←</span><b><i>לוקחים תדריך</i></b>
+          </div>
+          <p>כל מסך הוא ירידה בגובה: מתצלום רחב של הגזרה, דרך האירוע והמקום, אל פנים אחד ותיק אחד. הצילום האמיתי מלווה מהתחלה עד הסוף, גם ברקע של דף הנופל.</p>
+        </div>
+      </div>
+      <div class="logicbox">
+        <h4>ההיגיון של הקו</h4>
+        <ul>
+          <li><b>התצלום האמיתי הוא הגיבור.</b> אפס טקסטורות מזויפות: כל רקע הוא צילום לוויין אמיתי של בית חאנון וצפון הרצועה, כולל ההרס כפי שהוא.</li>
+          <li><b>סימון מאופק, כמו במציאות:</b> עיגול, נקודה, תווית קטנה עם מרחק. בלי כוונות, בלי חותמות, בלי אפקטים. הכבוד נמצא באיפוק.</li>
+          <li><b>"לפני / אחרי" על צילום אמיתי:</b> גרירת ידית בין שני מצבי הגזרה. ההשוואה מספרת את עוצמת הקרב בלי מילה אחת.</li>
+          <li><b>מהאוויר תמיד רואים את הנקודה:</b> דף הנופל יושב על תצלום המקום שבו נפל, עם נקודת אור מסומנת. המקום והאדם לא נפרדים אף פעם.</li>
+        </ul>
+        <div class="metagrid">
+          <div>
+            <h5>פלטה</h5>
+            <div class="swatches">
+              <div class="sw" style="background:#1c2126"><span>#1C2126</span></div>
+              <div class="sw" style="background:#7a8471"><span>צבעי התצלום</span></div>
+              <div class="sw" style="background:#ffd66b"><span>#FFD66B</span></div>
+              <div class="sw" style="background:#f4f1e8"><span>#F4F1E8</span></div>
+            </div>
+          </div>
+          <div>
+            <h5>טיפוגרפיה</h5>
+            <div class="typo" style="font-family:'Miriam Libre',sans-serif;font-weight:700">Miriam Libre · כותרות, יציב ורשמי</div>
+            <div class="typo" style="font-family:'IBM Plex Mono',monospace;font-size:12px">IBM Plex Mono · נ"צ, תאריכי צילום, מרחקים</div>
+            <div class="typo">Assistant · טקסט רץ על פאנלים בהירים</div>
+          </div>
+        </div>
+        <div style="margin-top:26px">
+          <h5 style="font-size:12px;letter-spacing:.18em;font-weight:700;opacity:.6;margin-bottom:10px">רפרנסים שהוזנו לקו</h5>
+          <div class="refs">
+            <span>תצלומי הלוויין האמיתיים של הגזרה</span>
+            <span>מפות תדריך על תצ"א</span>
+            <span>NYT Visual Investigations</span>
+            <span>Bellingcat · פורנזיקה חזותית</span>
+            <span>Google Earth · קריאת שטח</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- מסכים קו ג -->
+    <div class="screens">
+
+      <!-- ג0 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen">
+            <div class="c-air n"></div>
+            <div class="c-dim" style="background:linear-gradient(180deg,#10131699 0%,#10131622 40%,#101316f2 78%,#101316 100%)"></div>
+            <div style="position:absolute;bottom:0;left:0;right:0;padding:0 26px 44px;z-index:20;text-align:center">
+              <div class="c-mono" style="font-size:9px;letter-spacing:.3em;color:#c9bd8a;margin-bottom:12px">מ ו ר ש ת &nbsp; ק ר ב</div>
+              <div style="font-family:'Miriam Libre',sans-serif;font-size:36px;font-weight:700;color:#f4f1e8;line-height:1.15">תיק גזרה</div>
+              <div class="c-mono" style="font-size:9.5px;color:#b3baa5;margin:12px 0 24px;line-height:1.9">צפון רצועת עזה · חרבות ברזל<br>60 רשומות מאומתות · 6 קרבות</div>
+              <div style="height:50px;border-radius:13px;background:#f4f1e8;color:#20241f;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px">פתח את התיק</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN C-00</div>
+          <h6>שער · הגזרה האמיתית</h6>
+          <ul>
+            <li>הכניסה היא תצלום הלוויין האמיתי של צפון הרצועה. בלי איור, בלי דרמה מלאכותית: המקום עצמו.</li>
+            <li>שכבת ההחשכה עדינה והטקסט מינימלי. הצילום עושה את העבודה.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ג1 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen">
+            <div class="c-air n"></div>
+            <div class="c-dim"></div>
+            <div class="c-top">
+              <div class="c">נ"צ <b>31°32.4'N 34°32.1'E</b><br>צולם <b>03.2026</b> · לוויין</div>
+              <div class="d">בית חאנון</div>
+            </div>
+            <div class="c-north"><b>↑</b>צפון</div>
+            <div class="c-pin" style="top:26%;right:28%"><div class="p">▲</div><div class="lb">קרב · 240 מ'</div></div>
+            <div class="c-pin" style="top:39%;right:62%"><div class="p f">🕯</div><div class="lb">סמ"ר ג. ניצן ז"ל · 410 מ'</div></div>
+            <div class="c-pin" style="top:57%;right:30%"><div class="p">▲</div><div class="lb">קרב · 520 מ'</div></div>
+            <div class="c-scale"><div class="bar"><i></i><i></i><i></i><i></i></div>200 מ'</div>
+            <div class="c-sheet2">
+              <div class="grab"></div>
+              <h3>מה קרה כאן?</h3>
+              <div class="m">המיקום שלך · בית חאנון צפון · דיוק 4 מ'</div>
+              <div class="c-legend2"><span><b></b>קרב</span><span><b class="f"></b>נופל</span></div>
+              <div class="c-btn2">סרוק את הסביבה</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN C-01</div>
+          <h6>מסך ראשי · קריאת התצלום</h6>
+          <ul>
+            <li>תצלום הלוויין האמיתי הוא המפה. למעלה: נ"צ ותאריך הצילום, כמו בתצ"א מבצעית.</li>
+            <li>סימון מאופק בשפת הסקיצות של שמעון: עיגולים קטנים, נר לנופל, חץ לקרב, מרחק אמיתי.</li>
+            <li>פאנל השנהב התחתון שומר על השאלה המרכזית ועל קריאות מלאה בשמש.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ג2 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen">
+            <div class="c-air w" style="background-position:35% 30%"></div>
+            <div class="c-dim" style="background:linear-gradient(180deg,#10131677 0%,transparent 30%,#101316aa 52%)"></div>
+            <div class="c-top">
+              <div class="c">תיק אירוע · <b>רשומה 12/60</b></div>
+              <div class="d">✓ אושר מג"ד</div>
+            </div>
+            <div class="c-mark" style="top:26%;right:30%;width:74px;height:56px"><span class="t">גזרת הקרב</span></div>
+            <div class="c-sheet2" style="max-height:58%">
+              <div class="grab"></div>
+              <h3>קרב בית חאנון · סבב ראשון</h3>
+              <div class="m">אוקטובר עד דצמבר 2023 · צולם 03.2026</div>
+              <div style="margin-top:10px">
+                <div class="c-frow2"><span class="k">כוחות</span><span class="v">אוגדה 252 · צוותי קרב חטיבתיים</span></div>
+                <div class="c-frow2"><span class="k">נפגעים</span><span class="v">19 נופלים · תיקי אדם מקושרים</span></div>
+                <div class="c-frow2"><span class="k">מקורות</span><span class="v">12 עדויות · 4 תמונות · אושר מג"ד</span></div>
+              </div>
+              <div class="c-btn2">פתח את יומן הקרב</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN C-02</div>
+          <h6>תיק אירוע · הקרב על התצלום</h6>
+          <ul>
+            <li>גזרת הקרב מסומנת במלבן דק אחד על הצילום האמיתי. זה כל הסימון שצריך.</li>
+            <li>הנתונים על פאנל שנהב: כוחות, נפגעים, ותמיד שורת המקורות והאימות.</li>
+            <li>שפה של מסמך רשמי, בלי אביזרים: הרצינות נובעת מהאיפוק.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ג3 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen">
+            <div class="c-before2"></div>
+            <div class="c-after2"></div>
+            <div class="c-handle2">⇄</div>
+            <div class="c-top">
+              <div class="c">השוואת תצלומים · <b>אותה נקודה</b></div>
+              <div class="d">ג'באליה</div>
+            </div>
+            <div class="c-balbl2" style="top:110px;right:14px">לפני · 06.10.23 · הדמיה</div>
+            <div class="c-balbl2" style="top:110px;left:14px;color:#ffd66b">אחרי · 03.2026 · צילום אמיתי</div>
+            <div class="c-actionbar2">
+              <div class="c-btn2" style="margin-top:0">מה קרה בין התצלומים?</div>
+              <div class="c-mono" style="text-align:center;font-size:8.5px;color:#8a8674;margin-top:8px">גרור את הידית · ההשוואה מספרת את הסיפור</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN C-03</div>
+          <h6>לפני / אחרי · האמת של הצילום</h6>
+          <ul>
+            <li>שני מצבים של אותה נקודה, על צילום אמיתי. ההרס והשינוי נראים בעין, בלי מילים.</li>
+            <li>פורמט מוכר מתחקירי ה-NYT ו-Bellingcat, והכלי החזק ביותר של הקו הזה.</li>
+            <li>מכאן צוללים לאירועים שקרו "בין התצלומים". (צילומי ה"לפני" ההיסטוריים יירכשו למוצר האמיתי.)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ג4 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen">
+            <div class="c-air close" style="background-position:55% 38%"></div>
+            <div class="c-dim" style="background:linear-gradient(180deg,#10131688 0%,#10131633 30%,#101316cc 48%)"></div>
+            <div class="c-top">
+              <div class="c">תיק אדם · <b>לזכרו</b></div>
+              <div class="d">✓ אושר ע"י המשפחה</div>
+            </div>
+            <div class="c-fallring" style="top:26%;right:42%"></div>
+            <div class="c-fallpt" style="top:calc(26% + 25px);right:calc(42% + 25px)"></div>
+            <div class="c-pin" style="top:36%;right:30%"><div class="lb">נקודת הנפילה · צפון הרצועה</div></div>
+            <div class="c-sheet2" style="max-height:62%">
+              <div class="grab"></div>
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <div class="c-photo2" style="min-width:76px;width:76px;height:96px;background:url('assets/gilad.jpg') center 20%/cover"></div>
+                <div>
+                  <h3 style="font-size:18px">סמ"ר גלעד נחמיה ניצן ז"ל</h3>
+                  <div class="m">לוחם סיירת גבעתי · בן 21 · שילה<br>נפל בקרב בצפון הרצועה · י"ט בחשוון · 3.11.2023</div>
+                </div>
+              </div>
+              <div style="font-family:'Assistant',sans-serif;font-size:12px;color:#3c4034;line-height:1.7;margin-top:12px;border-right:3px solid #ffd66b;padding-right:10px">"ילד שמח, שובב ומתוק, שחיוך גדול מעטר תמיד את פניו." בן ליהודית ויעקב, אח לשישה.</div>
+              <div class="c-btn2">🎙 עדויות החברים · 4 הקלטות</div>
+              <div class="c-btn2 ghost">נווט אל הנקודה · עמוד במקום</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN C-04</div>
+          <h6>תיק אדם · הפנים והמקום ביחד</h6>
+          <ul>
+            <li>הכלל החדש מיושם: ברקע תמיד תצלום המקום שבו נפל, עם נקודת אור מסומנת ונושמת.</li>
+            <li>התמונה האמיתית שלו, השם המלא, והציטוט מהמשפחה. שום דבר לא גנרי.</li>
+            <li>שתי פעולות: לשמוע את החברים, או לנווט ולעמוד במקום עצמו.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ג5 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen">
+            <div class="c-air w" style="background-position:70% 60%"></div>
+            <div class="c-dim" style="background:linear-gradient(180deg,#101316aa 0%,#101316cc 22%)"></div>
+            <div class="c-top">
+              <div class="c">יומן הקרב · <b>סבב ראשון</b></div>
+              <div class="d">צפון הרצועה</div>
+            </div>
+            <div class="c-sheet2" style="max-height:74%;overflow:hidden">
+              <div class="grab"></div>
+              <h3 style="font-size:17px">הקרב, שורה אחר שורה</h3>
+              <div class="m" style="margin-bottom:6px">מבוסס על עדויות מאומתות בלבד</div>
+              <div class="c-logrow"><span class="t">27.10.23</span><span class="x">כניסה קרקעית · <b>תחילת התמרון</b> בצפון הרצועה</span></div>
+              <div class="c-logrow"><span class="t">28.10.23</span><span class="x">טיהור שורת המבנים הראשונה · 3 עדויות</span></div>
+              <div class="c-logrow"><span class="t">03.11.23</span><span class="x">הקרב שבו נפל <b>סמ"ר גלעד נחמיה ניצן ז"ל</b> · סיירת גבעתי</span></div>
+              <div class="c-logrow"><span class="t">04.11.23</span><span class="x">ההלוויה בבית העלמין בשילה · עדויות חברים</span></div>
+              <div class="c-logrow"><span class="t">05.11.23</span><span class="x">השלמת השליטה ברובע · דיווח רשמי</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN C-05</div>
+          <h6>יומן הקרב · כרונולוגיה מאומתת</h6>
+          <ul>
+            <li>הקרב כיומן: תאריך, עובדה, מקור. קריא בסריקה של 20 שניות.</li>
+            <li>היומן יושב על תצלום הגזרה, כך שהכרונולוגיה לא מתנתקת מהמקום.</li>
+            <li>כל שורה נפתחת לרשומה המלאה עם העדויות שלה.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ג6 -->
+      <div class="shot">
+        <div class="phone"><div class="notch"></div>
+          <div class="screen">
+            <div class="c-air n" style="filter:brightness(.5)"></div>
+            <div class="c-top">
+              <div class="c">תדריך מוכן · <b>בית חאנון צפון</b></div>
+              <div class="d">A4</div>
+            </div>
+            <div class="c-sheet3">
+              <div class="shead"><span>מורשת קרב · תדריך עמדה</span><span>עמ' 1/2</span></div>
+              <h4>בית חאנון צפון · מה קרה כאן</h4>
+              <div class="thumb"><i></i></div>
+              <p>תדריך לעמידה בשטח: קרב בית חאנון, הסבב הראשון, אוקטובר-דצמבר 2023. כולל נקודת עצירה לזכרו של סמ"ר גלעד נחמיה ניצן ז"ל, לוחם סיירת גבעתי, ושאלת סגירה לכוח.</p>
+              <div class="foot"><span>הופק מ-12 רשומות מאומתות</span><span>17.07.2026</span></div>
+            </div>
+            <div class="c-actionbar2">
+              <div class="c-btn2" style="margin-top:0">ייצא PDF לתדריך</div>
+              <div class="c-mono" style="text-align:center;font-size:8.5px;color:#8a8674;margin-top:8px">או שלח ישירות למ"פים בוואטסאפ</div>
+            </div>
+          </div>
+        </div>
+        <div class="annot">
+          <div class="sn">SCREEN C-06</div>
+          <h6>הפקת תדריך · התוצר שנשאר ביחידה</h6>
+          <ul>
+            <li>שקף A4 מוכן להדפסה, עם תצלום האוויר האמיתי והנקודה המסומנת.</li>
+            <li>נושא את חותמת המקורות המאומתים ותאריך ההפקה.</li>
+            <li>זה הערך למערכת: האפליקציה מייצרת תוצרים שחיים גם מחוץ למסך.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= השוואה ================= -->
+<section class="compare" id="compare">
+  <div class="wrap">
+    <div class="kicker">ראש בראש</div>
+    <h2>שלושה קווים, שלוש תשובות לאותה שאלה</h2>
+    <table class="comp-table">
+      <tr><th></th><th>קו א' · אור זיכרון</th><th>קו ב' · שכבות האדמה</th><th>קו ג' · תיק גזרה</th></tr>
+      <tr><td>המטאפורה</td><td class="col-a">נר נשמה · המפה כטקס</td><td class="col-b">ארכיאולוגיה · האדמה זוכרת בשכבות</td><td style="color:#8a7a1e">תצלום האוויר האמיתי · המקום כפי שהוא</td></tr>
+      <tr><td>קהל מוביל</td><td>משפחות, חברים, הציבור, ימי זיכרון</td><td>מפקדים וחיילים בגזרה, סיורי גבולות</td><td>מפקדים, גופי מורשת בצה"ל, מקבלי החלטות</td></tr>
+      <tr><td>מתי משתמשים</td><td>בבית, בערב, ברגע שקט. חוויה של 5-10 דקות</td><td>בשטח, בשמש, לפני תדריך. 30 שניות עד 5 דקות</td><td>בחמ"ל ובהכנת תדריכים. עבודה של קמ"ן, תוצר מודפס</td></tr>
+      <tr><td>האינטראקציה החתומה</td><td>"הדלק נר" + מסע הקרב בגלילה</td><td>סריקת "מה קרה כאן?" + חוגת הזמן</td><td>לפני/אחרי על צילום אמיתי + הפקת תדריך A4</td></tr>
+      <tr><td>טיפוגרפיה</td><td>דוד (David Libre) + Assistant</td><td>Secular One + IBM Plex Sans Hebrew</td><td>Miriam Libre + מונו + Assistant</td></tr>
+      <tr><td>שפה ויזואלית</td><td>לילה, ענבר, סריף, קצב איטי</td><td>אור יום, חול וזית, מונו, קצב מבצעי</td><td>תצלומי אוויר אמיתיים, סימון עדין, שנהב וכהה</td></tr>
+      <tr><td>מדד הצלחה</td><td>נרות שהודלקו, זמן בסיפור, שיתופים</td><td>תדריכים שהופקו בשטח, רשומות שהוזנו, שימוש חוזר</td><td>שקפים שיוצאו, אימוץ ע"י יחידות ומוסדות</td></tr>
+      <tr><td>סיכון עיקרי</td><td>כבד רגשית לשימוש יומיומי תכוף</td><td>עלול להרגיש "יבש" למשפחות</td><td>קור מבצעי דורש עדינות סביב הנופלים</td></tr>
+    </table>
+    <div class="finalnote">
+      <b>שורה תחתונה:</b> שלושה מוצרים שנפגשים באותו מסד נתונים מאומת. קו א' בונה את הלב מול הציבור והמשפחות, קו ב' בונה את הערך היומיומי של מפקד בשטח, וקו ג' מדבר בשפה המוסדית של צה"ל ומייצר תוצרים שנשארים ביחידה. אפשר לבחור אחד לפיילוט, ואפשר לראות בהם מצבים של מוצר אחד. ההדמיה של האתר המזמין למטה מראה איך הבחירה מתלבשת גם על הווב.
+    </div>
+  </div>
+</section>
+
+<!-- ================= הדמיית האתר המזמין ================= -->
+<section class="sitedemo" id="site-demo">
+  <div class="wrap">
+    <div class="kicker">האתר המזמין · רפרנס: lusion.co</div>
+    <h2 style="color:#f3ecdd">הדמיה: איך זה מרגיש כאתר וואו</h2>
+    <p class="lead" style="margin-top:14px">הדמיה ראשונית של עמוד הבית, ברוח Lusion: חושך, טיפוגרפיה ענקית, אלמנט תלת-ממד חי במרכז, וגלילה שהיא מסע. מיושם כאן על קו א' (אור זיכרון) כדוגמה. ברגע שתיסגר על כיוון, נבנה את זה אמיתי: WebGL + GSAP, והתוכן, התמונות וההנפשות יותאמו לקו הנבחר.</p>
+
+    <div class="browser">
+      <div class="bar"><i></i><i></i><i></i><span class="url">moreshet-krav.org.il</span></div>
+      <div class="bstage">
+        <div class="bnav">
+          <div class="lg"><i></i>מורשת קרב</div>
+          <div class="lnk"><span>הסיפור</span><span>המפה</span><span>הנופלים</span><span>הצטרפות</span></div>
+          <div class="cta">פתח את המפה</div>
+        </div>
+        <div class="borb">
+          <div class="dl" style="top:30%;right:34%"></div>
+          <div class="dl" style="top:52%;right:58%;animation-delay:1.2s"></div>
+          <div class="dl" style="top:64%;right:40%;animation-delay:2.1s"></div>
+          <div class="dl" style="top:42%;right:70%;animation-delay:.6s"></div>
+        </div>
+        <div class="bhead">
+          <h3>כל מקום<br><em>נושא סיפור</em></h3>
+          <p>המפה החיה של מורשת הקרב · רצועת עזה, תשפ"ד-תשפ"ו</p>
+        </div>
+        <div class="bmeta" style="top:96px;right:38px">EST. 2026 · ISRAEL</div>
+        <div class="bmeta" style="top:96px;left:38px;text-align:left">60 RECORDS<br>54 LIGHTS</div>
+        <div class="callout" style="top:150px;left:2.5%;max-width:225px">כאן נכנסת ההנפשה הריאליסטית (המקבילה לאסטרונאוט של Lusion): כדור הארץ בלילה שמתקרב אל הרצועה, ונקודות אור נדלקות בו בזמן אמת. WebGL, מגיב לתנועת העכבר.</div>
+        <div class="bscroll">גלול · המסע מתחיל ↓</div>
+        <div class="bmarquee">קרב בית חאנון · קרב ג'באליה הראשון · קרב מחנות המרכז · סבב ראשון · צפון הרצועה · יזכור · &nbsp; קרב בית חאנון · קרב ג'באליה הראשון · קרב מחנות המרכז</div>
+      </div>
+    </div>
+
+    <div class="browser" style="margin-top:34px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">moreshet-krav.org.il · scroll 38%</span></div>
+      <div class="bstage2">
+        <div class="bs2num">54</div>
+        <div class="bs2txt">
+          <h4>לוחמים שנפלו.<br>סיפור אחד לכל אחד.</h4>
+          <p>בגלילה, המספר נבנה ספרה-ספרה והאורות נדלקים סביבו. כל כרטיס הוא שער לסיפור מלא במפה.</p>
+        </div>
+        <div class="bs2cards">
+          <div class="bs2card"><div class="glow"></div><h5>סמ"ר גלעד נחמיה ניצן ז"ל</h5><p>סיירת גבעתי<br>צפון הרצועה · 3.11.23</p></div>
+          <div class="bs2card"><div class="glow"></div><h5>קרב בית חאנון</h5><p>אוגדה 252 · סבב ראשון<br>19 סיפורים</p></div>
+          <div class="bs2card"><div class="glow"></div><h5>קרב ג'באליה הראשון</h5><p>אוגדה 162<br>56 סיפורים</p></div>
+        </div>
+        <div class="callout up" style="bottom:70px;right:12%">סקשן scroll-scrub: הגלילה שולטת בקצב, כמו בפרויקטים של Lusion. GSAP ScrollTrigger + מונה חי.</div>
+        <div class="bprog"><i></i></div>
+      </div>
+    </div>
+
+    <div class="sd-annot">
+      <div class="cell">
+        <h6>מה נלקח מ-Lusion</h6>
+        <p>כניסה חשוכה עם אלמנט תלת-ממד אחד דומיננטי, טיפוגרפיה ענקית שחיה בתוך הסצנה, מטא-טקסט בפינות, ומעברי גלילה חלקים שמרגישים כמו סרט אחד רציף.</p>
+      </div>
+      <div class="cell">
+        <h6>מה מקומי וייחודי לנו</h6>
+        <p>במקום showreel של סטודיו: כדור הארץ בלילה, נקודות אור אמיתיות מהדאטה, גופן דוד ממלכתי, ושפת "יזכור" שמובילה אל המפה החיה. הוואו משרת את הרגש, לא להפך.</p>
+      </div>
+      <div class="cell">
+        <h6>ההנפשות שיופקו</h6>
+        <p>סצנת פתיחה: גלובוס לילי ריאליסטי שמתקרב לרצועה (WebGL). אינטרלוד: נר בודד נדלק בחושך ומתרבה לשדה אורות. הכול פוטוריאליסטי, ללא דמויות מזוהות, בכפוף לרגישות הנושא.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  מפת מורשת · הצעת קונספט ועיצוב · אוריה ברמן · יולי 2026 · דמות הנופל במוקאפים: סמ"ר גלעד נחמיה ניצן ז"ל, לוחם סיירת גבעתי, נפל בקרב בצפון הרצועה 3.11.2023. הפרטים מתוך אתרי הנצחה פומביים (יזכור, נופלים); שילוב בפרסום מחייב אישור המשפחה. פרטי תרחיש חסרים סומנו כדוגמה להמחשה
+</footer>
+
+</body>
+</html>
