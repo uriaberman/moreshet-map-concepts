@@ -440,6 +440,36 @@ h2{font-size:clamp(26px,3vw,40px);font-weight:800;line-height:1.15}
 .bs2card:nth-child(3){transform:translateY(52px);opacity:.75}
 .bprog{position:absolute;bottom:24px;right:9%;left:9%;height:2px;background:#ffffff14;z-index:20}
 .bprog i{position:absolute;top:0;right:0;width:38%;height:100%;background:var(--a-amber)}
+/* ---------- הדמיה בכיוון קו ג ---------- */
+.chero{position:relative;aspect-ratio:16/9.2;overflow:hidden}
+.chero .bgimg{position:absolute;inset:0;background:url('assets/aerial-north-tall.jpg') center 26%/cover}
+.chero .grad{position:absolute;inset:0;background:linear-gradient(180deg,#0d0f10cc 0%,#0d0f1044 26%,#0d0f1050 55%,#0d0f10ee 92%)}
+.bnav2{position:absolute;top:0;right:0;left:0;display:flex;align-items:center;justify-content:space-between;padding:22px 38px;z-index:40}
+.bnav2 .lg{font-family:'Miriam Libre',sans-serif;font-weight:700;font-size:19px;color:#f4f1e8;display:flex;align-items:center;gap:9px}
+.bnav2 .lg i{width:8px;height:8px;border-radius:50%;background:#ffd66b;box-shadow:0 0 12px #ffd66b;display:inline-block}
+.bnav2 .lnk{display:flex;gap:26px;font-size:12.5px;color:#cfd5c7;font-family:'Assistant',sans-serif}
+.bnav2 .cta{font-size:12.5px;font-weight:700;color:#23261f;background:#f4f1e8;border-radius:100px;padding:9px 20px}
+.chead{position:absolute;top:45%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:20;width:88%}
+.chead h3{font-family:'Miriam Libre',sans-serif;font-weight:700;font-size:64px;color:#f4f1e8;text-shadow:0 4px 34px #000}
+.chead p{font-family:'Assistant',sans-serif;font-size:15px;color:#dde1d2;margin-top:14px;line-height:1.8;max-width:560px;margin-inline:auto;text-shadow:0 2px 14px #000}
+.cmeta{position:absolute;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:#c3cab2;z-index:30;line-height:1.8;text-shadow:0 1px 6px #000}
+.cmarq{position:absolute;bottom:0;right:0;left:0;border-top:1px solid #ffffff18;background:#0d0f10d9;padding:10px 0;white-space:nowrap;overflow:hidden;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#b8c0a8;z-index:35}
+.cscroll{position:absolute;bottom:52px;left:50%;transform:translateX(-50%);font-size:11.5px;color:#c3cab2;z-index:30;animation:hint 2.4s infinite;font-family:'Assistant',sans-serif;text-shadow:0 1px 6px #000}
+.callout.iv{background:#f4f1e8;color:#23261f}
+.callout.iv:before{border-bottom-color:#f4f1e8}
+.csplit{position:relative;aspect-ratio:16/8;overflow:hidden;background:#0d0f10}
+.csplit .shade{position:absolute;inset:0;background:linear-gradient(90deg,transparent 42%,#0d0f10cc 80%);z-index:12}
+.cs2txt{position:absolute;top:50%;right:7%;transform:translateY(-50%);z-index:20;max-width:330px;text-align:right}
+.cs2txt h4{font-family:'Miriam Libre',sans-serif;font-size:30px;font-weight:700;color:#f4f1e8;line-height:1.35;text-shadow:0 3px 20px #000}
+.cs2txt p{font-family:'Assistant',sans-serif;font-size:13.5px;color:#dde1d2;margin-top:12px;line-height:1.8;text-shadow:0 2px 12px #000}
+.cgib{position:relative;aspect-ratio:16/8;overflow:hidden}
+.cgib .bgimg{position:absolute;inset:0;background:url('assets/aerial-close-tall.jpg') 55% 35%/cover}
+.cgib .grad{position:absolute;inset:0;background:radial-gradient(640px 360px at 50% 46%,#0d0f10b0 0%,#0d0f10ea 100%)}
+.cgib .inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:20;width:82%}
+.cgib .ph{width:92px;height:92px;border-radius:50%;margin:0 auto 18px;background:url('assets/gilad.jpg') center 18%/cover;border:3px solid #f4f1e8;box-shadow:0 10px 34px #000}
+.cgib h4{font-family:'Miriam Libre',sans-serif;font-size:33px;font-weight:700;color:#f4f1e8;line-height:1.4}
+.cgib .nm{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#ffd66b;margin-top:12px;letter-spacing:.06em}
+.cgib .op{display:inline-flex;margin-top:20px;background:#f4f1e8;color:#23261f;border-radius:100px;padding:12px 26px;font-weight:700;font-size:13px}
 footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
 </style>
 </head>
@@ -451,7 +481,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
     <span class="tag"><i></i>הצעת עיצוב · מוקאפ להדגמה בלבד</span>
     <div class="kicker">מורשת קרב · אפליקציית מפת מורשת</div>
     <h1>מה קרה כאן?</h1>
-    <p class="lead">שלושה כיווני עיצוב שונים מהיסוד לאפליקציה שעונה על שאלה אחת: מפקד, חייל או בן משפחה עומדים בנקודה בשטח, ורוצים לדעת מה קרה בדיוק שם. כל כיוון בנוי מקונספט רעיוני אחר, קהל מוביל אחר, שפה ויזואלית אחרת וטיפוגרפיה משלו. בסוף העמוד: הדמיה ראשונית לאתר המזמין ברוח Lusion.</p>
+    <p class="lead">מג"ד עמד בג'בליה, רצה להדליק נר לזכר מי שנפל שם לפני שנה, וגילה שאף אחד לא יודע להגיד לו מי ואיפה. מהשאלה הזאת נולד המיזם, ומכאן שלוש דרכים לענות עליה: לכל קו קונספט משלו, קהל משלו, שפה משלו. בסוף העמוד: האתר המזמין, כבר בכיוון של תיק גזרה.</p>
     <div class="brieftxt">
       <p>"מפקד מגיע לגזרה, לוחץ על המיקום שלו ואומר: מה היה פה לידי? ואז הוא רואה איזה יחידות נלחמו לידו, איזה חיילים נפלו בקרב, מדבר על זה עם החיילים, <b>מחבר אותם</b>... אנחנו רוצים לייצר אפליקציה שנראית טוב, שהמטרה שלה היא לרכז מורשת קרב. זה נושא רגיש, והמון מידע על קרבות שהיו ועל חיילים שנפלו."</p>
     </div>
@@ -474,7 +504,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
     <span class="sep">|</span>
     <a href="#compare">השוואה</a>
     <span class="sep">|</span>
-    <a href="#site-demo">האתר המזמין · Lusion</a>
+    <a href="#site-demo">האתר המזמין · תיק גזרה</a>
   </div>
 </nav>
 
@@ -483,7 +513,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
   <div class="wrap">
     <div class="concept-head">
       <div>
-        <div class="cnum">קו א' · CONCEPT 01</div>
+        <div class="cnum">קו א' · הקונספט הראשון</div>
         <div class="cname">אור זיכרון</div>
         <div class="csub">המפה כטקס · כל נופל הוא נקודת אור בחושך</div>
         <p class="cdesc">
@@ -555,7 +585,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN A-00</div>
+          <div class="sn">קו א' · מסך 00</div>
           <h6>שער כניסה · רגע של כוונה</h6>
           <ul>
             <li>אין "דף בית". נכנסים כמו לאנדרטה: נר אחד, מילה אחת בגופן דוד, כפתור אחד.</li>
@@ -603,7 +633,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN A-01</div>
+          <div class="sn">קו א' · מסך 01</div>
           <h6>המפה בלילה · מסך הבית</h6>
           <ul>
             <li>לוויין לילי כהה. אין ריבוי צבעים: רק חושך, ונקודות אור ענבר שנושמות באנימציה איטית.</li>
@@ -636,7 +666,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN A-02</div>
+          <div class="sn">קו א' · מסך 02</div>
           <h6>כרטיס קרב · שער הכניסה לסיפור</h6>
           <ul>
             <li>לחיצה על נקודת אור פותחת כרטיס. לא טבלה: כותרת סריפית גדולה, ציר זמן מואר של רגעי המפתח.</li>
@@ -662,7 +692,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN A-03</div>
+          <div class="sn">קו א' · מסך 03</div>
           <h6>המסע · סיפור הקרב בגלילה</h6>
           <ul>
             <li>Scrollytelling מלא: כל גלילה מקדמת פרק, המפה נעה ומתקרבת מתחת לטקסט אל הנקודה המדוברת.</li>
@@ -698,7 +728,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN A-04</div>
+          <div class="sn">קו א' · מסך 04</div>
           <h6>דף נופל · מצבה חיה</h6>
           <ul>
             <li>דיוקן בהילת אור, שם בסריף גדול, והביוגרפיה שהמשפחה אישרה (זכות וטו מלאה, כמו בדק של שמעון).</li>
@@ -722,7 +752,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN A-05</div>
+          <div class="sn">קו א' · מסך 05</div>
           <h6>אישור הנר · הרגע שמשתפים</h6>
           <ul>
             <li>הפעולה הקטנה מקבלת משקל: מסך מלא, מונה אישי ("האדם ה-1,248"), והבטחה שהנר נראה על המפה.</li>
@@ -755,7 +785,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN A-06 · אופציונלי</div>
+          <div class="sn">קו א' · מסך 06 · אופציונלי</div>
           <h6>קיר האור · מסך יזכור (לדיון)</h6>
           <ul>
             <li>כל הנופלים כשדה של אורות נושמים. בלי גלילת רשימות אינסופית: חוויה אחת שקטה ועוצמתית.</li>
@@ -774,7 +804,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
   <div class="wrap">
     <div class="concept-head">
       <div>
-        <div class="cnum">קו ב' · CONCEPT 02</div>
+        <div class="cnum">קו ב' · הקונספט השני</div>
         <div class="cname">שכבות האדמה</div>
         <div class="csub">מכשיר שטח למפקד · האדמה זוכרת בשכבות</div>
         <p class="cdesc">
@@ -847,7 +877,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
                 <div class="b-cbody">
                   <h4>בית חאנון צפון</h4>
                   <p>84MB · מפות, 60 רשומות, 12 הקלטות · עודכן היום</p>
-                  <div class="b-ctags"><span class="b-ctag olive">פעיל כעת</span><span class="b-ctag">offline מלא</span></div>
+                  <div class="b-ctags"><span class="b-ctag olive">פעיל כעת</span><span class="b-ctag">עובד בלי קליטה</span></div>
                 </div>
               </div>
               <div class="b-card">
@@ -882,7 +912,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN B-00</div>
+          <div class="sn">קו ב' · מסך 00</div>
           <h6>חבילות גזרה · הכנה לפני יציאה</h6>
           <ul>
             <li>הנחת היסוד של הקו: בשטח אין קליטה. מורידים את הגזרה מראש, והכול עובד מקומית.</li>
@@ -930,7 +960,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN B-01</div>
+          <div class="sn">קו ב' · מסך 01</div>
           <h6>מסך שטח · המכשיר</h6>
           <ul>
             <li>מפה בהירה בסגנון טופוגרפי, קריאה בשמש ישירה. HUD עליון קבוע: נ"צ, אזימוט, דיוק ושכבת הזמן הפעילה.</li>
@@ -985,7 +1015,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN B-02</div>
+          <div class="sn">קו ב' · מסך 02</div>
           <h6>תוצאות סריקה · לפי מרחק וכיוון</h6>
           <ul>
             <li>התשובה לשאלת הליבה מסודרת כמו מכשיר ניווט: מרחק במטרים, כיוון בחץ מסתובב, זמן הליכה.</li>
@@ -1031,10 +1061,10 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN B-03</div>
+          <div class="sn">קו ב' · מסך 03</div>
           <h6>חוגת הזמן · אותה נקודה, זמנים אחרים</h6>
           <ul>
-            <li>האינטראקציה החתומה של הקו: גרירה בין שכבות זמן מחליפה את המפה ואת האירועים סביבך.</li>
+            <li>הרגע המרכזי של הקו: גרירה בין שכבות זמן מחליפה את המפה ואת האירועים סביבך.</li>
             <li>צ'יפים של "מה השתנה" מסכמים את ההבדל בין השכבות: קרבות שנפתחו, צירים, הרס.</li>
             <li>המבנה מוכן להרחבת החזון של שמעון: 2005, 1948, כל ישראל. פשוט עוד עצירות על החוגה.</li>
           </ul>
@@ -1081,7 +1111,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN B-04</div>
+          <div class="sn">קו ב' · מסך 04</div>
           <h6>תדריך עמדה · המוצר שיוצא מהאפליקציה</h6>
           <ul>
             <li>לחיצה אחת הופכת את רשומות הנקודה לתדריך בנוי: פתיחה, הקרב, האנשים, שאלת סגירה. עם זמנים.</li>
@@ -1128,7 +1158,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN B-05</div>
+          <div class="sn">קו ב' · מסך 05</div>
           <h6>דף יחידה · המורשת נכתבת מהשטח</h6>
           <ul>
             <li>כל גדוד רואה את ציר האירועים שלו בגזרה, עם סטטוס אימות שקוף: אושר מג"ד, אושר משפחה, בבדיקה.</li>
@@ -1179,7 +1209,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN B-06</div>
+          <div class="sn">קו ב' · מסך 06</div>
           <h6>הוספת מידע · סגירת המעגל</h6>
           <ul>
             <li>טופס בשפת הדק של שמעון: פורמט תמציתי מחייב, צירוף תמונה או עדות קולית, ותו לא.</li>
@@ -1198,7 +1228,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
   <div class="wrap">
     <div class="concept-head">
       <div>
-        <div class="cnum">קו ג' · CONCEPT 03</div>
+        <div class="cnum">קו ג' · הקונספט השלישי</div>
         <div class="cname">תיק גזרה</div>
         <div class="csub">תצלומי האוויר האמיתיים · כמו שהצבא רואה, בגובה של הלב</div>
         <p class="cdesc">
@@ -1271,7 +1301,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN C-00</div>
+          <div class="sn">קו ג' · מסך 00</div>
           <h6>שער · הגזרה האמיתית</h6>
           <ul>
             <li>הכניסה היא תצלום הלוויין האמיתי של צפון הרצועה. בלי איור, בלי דרמה מלאכותית: המקום עצמו.</li>
@@ -1305,7 +1335,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN C-01</div>
+          <div class="sn">קו ג' · מסך 01</div>
           <h6>מסך ראשי · קריאת התצלום</h6>
           <ul>
             <li>תצלום הלוויין האמיתי הוא המפה. למעלה: נ"צ ותאריך הצילום, כמו בתצ"א מבצעית.</li>
@@ -1340,7 +1370,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN C-02</div>
+          <div class="sn">קו ג' · מסך 02</div>
           <h6>תיק אירוע · הקרב על התצלום</h6>
           <ul>
             <li>גזרת הקרב מסומנת במלבן דק אחד על הצילום האמיתי. זה כל הסימון שצריך.</li>
@@ -1370,7 +1400,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN C-03</div>
+          <div class="sn">קו ג' · מסך 03</div>
           <h6>לפני / אחרי · האמת של הצילום</h6>
           <ul>
             <li>שני מצבים של אותה נקודה, על צילום אמיתי. ההרס והשינוי נראים בעין, בלי מילים.</li>
@@ -1409,7 +1439,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN C-04</div>
+          <div class="sn">קו ג' · מסך 04</div>
           <h6>תיק אדם · הפנים והמקום ביחד</h6>
           <ul>
             <li>הכלל החדש מיושם: ברקע תמיד תצלום המקום שבו נפל, עם נקודת אור מסומנת ונושמת.</li>
@@ -1442,7 +1472,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN C-05</div>
+          <div class="sn">קו ג' · מסך 05</div>
           <h6>יומן הקרב · כרונולוגיה מאומתת</h6>
           <ul>
             <li>הקרב כיומן: תאריך, עובדה, מקור. קריא בסריקה של 20 שניות.</li>
@@ -1475,7 +1505,7 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
           </div>
         </div>
         <div class="annot">
-          <div class="sn">SCREEN C-06</div>
+          <div class="sn">קו ג' · מסך 06</div>
           <h6>הפקת תדריך · התוצר שנשאר ביחידה</h6>
           <ul>
             <li>שקף A4 מוכן להדפסה, עם תצלום האוויר האמיתי והנקודה המסומנת.</li>
@@ -1499,14 +1529,14 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
       <tr><td>המטאפורה</td><td class="col-a">נר נשמה · המפה כטקס</td><td class="col-b">ארכיאולוגיה · האדמה זוכרת בשכבות</td><td style="color:#8a7a1e">תצלום האוויר האמיתי · המקום כפי שהוא</td></tr>
       <tr><td>קהל מוביל</td><td>משפחות, חברים, הציבור, ימי זיכרון</td><td>מפקדים וחיילים בגזרה, סיורי גבולות</td><td>מפקדים, גופי מורשת בצה"ל, מקבלי החלטות</td></tr>
       <tr><td>מתי משתמשים</td><td>בבית, בערב, ברגע שקט. חוויה של 5-10 דקות</td><td>בשטח, בשמש, לפני תדריך. 30 שניות עד 5 דקות</td><td>בחמ"ל ובהכנת תדריכים. עבודה של קמ"ן, תוצר מודפס</td></tr>
-      <tr><td>האינטראקציה החתומה</td><td>"הדלק נר" + מסע הקרב בגלילה</td><td>סריקת "מה קרה כאן?" + חוגת הזמן</td><td>לפני/אחרי על צילום אמיתי + הפקת תדריך A4</td></tr>
+      <tr><td>הרגע המרכזי</td><td>"הדלק נר" + מסע הקרב בגלילה</td><td>סריקת "מה קרה כאן?" + חוגת הזמן</td><td>לפני/אחרי על צילום אמיתי + הפקת תדריך A4</td></tr>
       <tr><td>טיפוגרפיה</td><td>דוד (David Libre) + Assistant</td><td>Secular One + IBM Plex Sans Hebrew</td><td>Miriam Libre + מונו + Assistant</td></tr>
       <tr><td>שפה ויזואלית</td><td>לילה, ענבר, סריף, קצב איטי</td><td>אור יום, חול וזית, מונו, קצב מבצעי</td><td>תצלומי אוויר אמיתיים, סימון עדין, שנהב וכהה</td></tr>
       <tr><td>מדד הצלחה</td><td>נרות שהודלקו, זמן בסיפור, שיתופים</td><td>תדריכים שהופקו בשטח, רשומות שהוזנו, שימוש חוזר</td><td>שקפים שיוצאו, אימוץ ע"י יחידות ומוסדות</td></tr>
       <tr><td>סיכון עיקרי</td><td>כבד רגשית לשימוש יומיומי תכוף</td><td>עלול להרגיש "יבש" למשפחות</td><td>קור מבצעי דורש עדינות סביב הנופלים</td></tr>
     </table>
     <div class="finalnote">
-      <b>שורה תחתונה:</b> שלושה מוצרים שנפגשים באותו מסד נתונים מאומת. קו א' בונה את הלב מול הציבור והמשפחות, קו ב' בונה את הערך היומיומי של מפקד בשטח, וקו ג' מדבר בשפה המוסדית של צה"ל ומייצר תוצרים שנשארים ביחידה. אפשר לבחור אחד לפיילוט, ואפשר לראות בהם מצבים של מוצר אחד. ההדמיה של האתר המזמין למטה מראה איך הבחירה מתלבשת גם על הווב.
+      <b>שורה תחתונה:</b> שלושה מוצרים שנפגשים באותו מסד נתונים מאומת. קו א' בונה את הלב מול הציבור והמשפחות, קו ב' בונה את הערך היומיומי של מפקד בשטח, וקו ג' מדבר בשפה המוסדית של צה"ל ומייצר תוצרים שנשארים ביחידה. אפשר לבחור אחד לפיילוט, ואפשר לראות בהם מצבים של מוצר אחד. בתחתית העמוד: האתר המזמין, כבר לבוש בכיוון של תיק גזרה.
     </div>
   </div>
 </section>
@@ -1514,66 +1544,83 @@ footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:#8b8570}
 <!-- ================= הדמיית האתר המזמין ================= -->
 <section class="sitedemo" id="site-demo">
   <div class="wrap">
-    <div class="kicker">האתר המזמין · רפרנס: lusion.co</div>
-    <h2 style="color:#f3ecdd">הדמיה: איך זה מרגיש כאתר וואו</h2>
-    <p class="lead" style="margin-top:14px">הדמיה ראשונית של עמוד הבית, ברוח Lusion: חושך, טיפוגרפיה ענקית, אלמנט תלת-ממד חי במרכז, וגלילה שהיא מסע. מיושם כאן על קו א' (אור זיכרון) כדוגמה. ברגע שתיסגר על כיוון, נבנה את זה אמיתי: WebGL + GSAP, והתוכן, התמונות וההנפשות יותאמו לקו הנבחר.</p>
+    <div class="kicker">האתר המזמין · בכיוון של תיק גזרה · רפרנס: lusion.co</div>
+    <h2 style="color:#f3ecdd">ככה תיק גזרה נהיה אתר שאי אפשר לעזוב</h2>
+    <p class="lead" style="margin-top:14px">בלוז'ן פותחים עם אסטרונאוט בחלל. אצלנו הפתיחה היא האדמה עצמה: תצלום הלוויין האמיתי של הגזרה, והשאלה שממנה הכול התחיל. עברית, מימין לשמאל, ובכל גלילה עוד פרק בסיפור.</p>
 
     <div class="browser">
       <div class="bar"><i></i><i></i><i></i><span class="url">moreshet-krav.org.il</span></div>
-      <div class="bstage">
-        <div class="bnav">
+      <div class="chero">
+        <div class="bgimg"></div>
+        <div class="grad"></div>
+        <div class="bnav2">
           <div class="lg"><i></i>מורשת קרב</div>
-          <div class="lnk"><span>הסיפור</span><span>המפה</span><span>הנופלים</span><span>הצטרפות</span></div>
+          <div class="lnk"><span>הסיפור</span><span>המפה</span><span>הלוחמים</span><span>הצטרפות</span></div>
           <div class="cta">פתח את המפה</div>
         </div>
-        <div class="borb">
-          <div class="dl" style="top:30%;right:34%"></div>
-          <div class="dl" style="top:52%;right:58%;animation-delay:1.2s"></div>
-          <div class="dl" style="top:64%;right:40%;animation-delay:2.1s"></div>
-          <div class="dl" style="top:42%;right:70%;animation-delay:.6s"></div>
+        <div class="chead">
+          <h3>מה קרה כאן?</h3>
+          <p>מתחת לכל נקודה בתצלום הזה יש שם, יש בית, יש סיפור. המפה החיה של קרבות חרבות ברזל מחזירה אותם אל האדמה שבה קרו.</p>
         </div>
-        <div class="bhead">
-          <h3>כל מקום<br><em>נושא סיפור</em></h3>
-          <p>המפה החיה של מורשת הקרב · רצועת עזה, תשפ"ד-תשפ"ו</p>
-        </div>
-        <div class="bmeta" style="top:96px;right:38px">EST. 2026 · ISRAEL</div>
-        <div class="bmeta" style="top:96px;left:38px;text-align:left">60 RECORDS<br>54 LIGHTS</div>
-        <div class="callout" style="top:150px;left:2.5%;max-width:225px">כאן נכנסת ההנפשה הריאליסטית (המקבילה לאסטרונאוט של Lusion): כדור הארץ בלילה שמתקרב אל הרצועה, ונקודות אור נדלקות בו בזמן אמת. WebGL, מגיב לתנועת העכבר.</div>
-        <div class="bscroll">גלול · המסע מתחיל ↓</div>
-        <div class="bmarquee">קרב בית חאנון · קרב ג'באליה הראשון · קרב מחנות המרכז · סבב ראשון · צפון הרצועה · יזכור · &nbsp; קרב בית חאנון · קרב ג'באליה הראשון · קרב מחנות המרכז</div>
+        <div class="c-fallring" style="top:57%;right:31%"></div>
+        <div class="c-fallpt" style="top:calc(57% + 25px);right:calc(31% + 25px)"></div>
+        <div class="c-pin" style="top:65%;right:24%"><div class="lb">כאן נפל סמ"ר גלעד נחמיה ניצן ז"ל</div></div>
+        <div class="cmeta" style="top:92px;right:38px">רצועת עזה · תשפ"ד-תשפ"ו</div>
+        <div class="cmeta" style="top:92px;left:38px;text-align:left">60 רשומות · 54 לוחמים</div>
+        <div class="callout iv" style="top:130px;left:2.5%;max-width:235px">במקום האסטרונאוט: טיסה קולנועית מעל הגזרה האמיתית. המצלמה צוללת מגובה לוויין עד גובה רחוב, נעצרת מעל נקודה אחת, ונר נדלק בה. מגיב לגלילה ולעכבר.</div>
+        <div class="cscroll">גללו למטה. יורדים אל הסיפור ↓</div>
+        <div class="cmarq">קרב בית חאנון · 🕯 · קרב ג'באליה הראשון · 🕯 · קרב מחנות המרכז · 🕯 · הסבב הראשון · 🕯 · יזכור · 🕯 · קרב בית חאנון · 🕯 · קרב ג'באליה הראשון</div>
       </div>
     </div>
 
     <div class="browser" style="margin-top:34px">
-      <div class="bar"><i></i><i></i><i></i><span class="url">moreshet-krav.org.il · scroll 38%</span></div>
-      <div class="bstage2">
-        <div class="bs2num">54</div>
-        <div class="bs2txt">
-          <h4>לוחמים שנפלו.<br>סיפור אחד לכל אחד.</h4>
-          <p>בגלילה, המספר נבנה ספרה-ספרה והאורות נדלקים סביבו. כל כרטיס הוא שער לסיפור מלא במפה.</p>
+      <div class="bar"><i></i><i></i><i></i><span class="url">moreshet-krav.org.il · פרק ב'</span></div>
+      <div class="csplit">
+        <div class="c-before2"></div>
+        <div class="c-after2" style="border-right-color:#f4f1e8"></div>
+        <div class="shade"></div>
+        <div class="c-handle2">⇄</div>
+        <div class="c-balbl2" style="top:24px;right:14px">לפני · 06.10.23</div>
+        <div class="c-balbl2" style="top:24px;left:14px;color:#ffd66b">אחרי · 03.2026</div>
+        <div class="cs2txt">
+          <h4>שני תצלומים של אותה שכונה.</h4>
+          <p>בין ה"לפני" ל"אחרי" עברו אחד-עשר שבועות של קרבות. גוללים, הידית זזה, והשטח מספר לבד את מה שמילים לא מצליחות.</p>
         </div>
-        <div class="bs2cards">
-          <div class="bs2card"><div class="glow"></div><h5>סמ"ר גלעד נחמיה ניצן ז"ל</h5><p>סיירת גבעתי<br>צפון הרצועה · 3.11.23</p></div>
-          <div class="bs2card"><div class="glow"></div><h5>קרב בית חאנון</h5><p>אוגדה 252 · סבב ראשון<br>19 סיפורים</p></div>
-          <div class="bs2card"><div class="glow"></div><h5>קרב ג'באליה הראשון</h5><p>אוגדה 162<br>56 סיפורים</p></div>
+        <div class="callout iv up" style="bottom:66px;right:44%;max-width:230px">הגלילה גוררת את ידית ההשוואה. בלי כפתורים ובלי הוראות: זזים, ומבינים.</div>
+        <div class="bprog"><i style="width:52%"></i></div>
+      </div>
+    </div>
+
+    <div class="browser" style="margin-top:34px">
+      <div class="bar"><i></i><i></i><i></i><span class="url">moreshet-krav.org.il · הלוחמים</span></div>
+      <div class="cgib">
+        <div class="bgimg"></div>
+        <div class="grad"></div>
+        <div class="c-fallring" style="top:30%;left:14%"></div>
+        <div class="c-fallpt" style="top:calc(30% + 25px);left:calc(14% + 25px)"></div>
+        <div class="c-pin" style="top:40%;left:8%"><div class="lb">נקודת הנפילה · 3.11.2023</div></div>
+        <div class="inner">
+          <div class="ph"></div>
+          <h4>"בשביל המלחמה הזו התאמנתי והשקעתי."</h4>
+          <div class="nm">סמ"ר גלעד נחמיה ניצן ז"ל · לוחם סיירת גבעתי · בן 21 · שילה</div>
+          <div><span class="op">פתח את התיק שלו</span></div>
         </div>
-        <div class="callout up" style="bottom:70px;right:12%">סקשן scroll-scrub: הגלילה שולטת בקצב, כמו בפרויקטים של Lusion. GSAP ScrollTrigger + מונה חי.</div>
-        <div class="bprog"><i></i></div>
+        <div class="callout iv" style="top:34px;right:5%;max-width:225px">לכל לוחם רגע משלו: מסך שלם, משפט אחד שלו, הפנים שלו, והנקודה שלו על האדמה. עדויות החברים מתנגנות מכאן.</div>
       </div>
     </div>
 
     <div class="sd-annot">
       <div class="cell">
-        <h6>מה נלקח מ-Lusion</h6>
-        <p>כניסה חשוכה עם אלמנט תלת-ממד אחד דומיננטי, טיפוגרפיה ענקית שחיה בתוך הסצנה, מטא-טקסט בפינות, ומעברי גלילה חלקים שמרגישים כמו סרט אחד רציף.</p>
+        <h6>מה לוקחים מלוז'ן</h6>
+        <p>את האומץ לתת למסך לנשום: דבר אחד גדול, משפט אחד, ושקט מסביב. ואת ההרגשה שהגלילה היא סרט שממשיך, לא דף שנגמר.</p>
       </div>
       <div class="cell">
-        <h6>מה מקומי וייחודי לנו</h6>
-        <p>במקום showreel של סטודיו: כדור הארץ בלילה, נקודות אור אמיתיות מהדאטה, גופן דוד ממלכתי, ושפת "יזכור" שמובילה אל המפה החיה. הוואו משרת את הרגש, לא להפך.</p>
+        <h6>מה בונים בפועל</h6>
+        <p>טיסת פתיחה מעל הגזרה האמיתית, השוואת לפני/אחרי שצמודה לגלילה, ופרקי לוחמים עם עדויות קול. עברית מלאה, מימין לשמאל, מהפיקסל הראשון.</p>
       </div>
       <div class="cell">
-        <h6>ההנפשות שיופקו</h6>
-        <p>סצנת פתיחה: גלובוס לילי ריאליסטי שמתקרב לרצועה (WebGL). אינטרלוד: נר בודד נדלק בחושך ומתרבה לשדה אורות. הכול פוטוריאליסטי, ללא דמויות מזוהות, בכפוף לרגישות הנושא.</p>
+        <h6>כמה זמן וכמה כסף</h6>
+        <p>גרסה ראשונה שאפשר להראות לשמעון: שלושה-ארבעה ימי עבודה, כלים חינמיים בלבד. הרמה המלאה עם טיסת התלת-ממד והסאונד: שבועיים-שלושה. הפירוט המלא בהודעה של אוריה.</p>
       </div>
     </div>
   </div>
